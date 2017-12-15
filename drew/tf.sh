@@ -22,15 +22,34 @@ tf_env() {
 }
 
 tf_packer() {
+	terraform get
 	terraform apply -target=random_pet.demo >/dev/null
 	eval $(tf_env)
 	export demo_name
 	packer build packer.json
 }
 
-terraform get
+tf_agents() {
+	eval $(tf_env)
+	aws --output text ec2 describe-instances --filter Name=tag:Name,Values=${demo_name}_spot_agent | grep INSTANCES | awk '{print $17}'
+}
+
+tf_ssh() {
+	eval $(tf_env)
+	case $2 in
+		server) connect_host=$public_ip_server ;;
+		agent) connect_host=$(tf_agents | head -1) ;;
+		*) connect_host="$2" ;;
+	esac
+	ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $ssh_priv_key ubuntu@$connect_host
+}
+
 case $1 in
 	packer)	tf_packer ;;
 	env)	tf_env ;;
-	*)		terraform "$@" ;;
+	ssh)	tf_ssh "$@" ;;
+	agents)	tf_agents ;;
+	*)		terraform get
+			terraform "$@"
+			;;
 esac

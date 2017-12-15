@@ -8,8 +8,10 @@ back to a single spire-server.
 
 Prerequisites:
 
-* Terraform
-* Packer
+* An AWS account and credentials
+* terraform
+* packer
+* awscli (optional for showing status)
 
 Before building AMIs or running the demo, initialize your terraform
 environment:
