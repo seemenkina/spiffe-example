@@ -258,3 +258,7 @@ output "public_ip_server" {
   value = "${aws_instance.server.public_ip}"
 }
 
+output "demo_name" {
+  value = "${random_pet.demo.id}"
+}
+

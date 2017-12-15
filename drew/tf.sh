@@ -17,12 +17,20 @@ if [[ ! -r $TF_VAR_SSH_PRIV_KEY ]]; then
 fi
 
 tf_env() {
-	echo "SSH_PRIV_KEY=${TF_VAR_SSH_PRIV_KEY}"
-	terraform output | tr 'a-z' 'A-Z' | sed 's/ //g'
+	echo "ssh_priv_key=${TF_VAR_SSH_PRIV_KEY}"
+	terraform output | sed 's/ //g'
 }
 
+tf_packer() {
+	terraform apply -target=random_pet.demo >/dev/null
+	eval $(tf_env)
+	export demo_name
+	packer build packer.json
+}
+
+terraform get
 case $1 in
-	packer)	packer build packer.json ;;
+	packer)	tf_packer ;;
 	env)	tf_env ;;
 	*)		terraform "$@" ;;
 esac

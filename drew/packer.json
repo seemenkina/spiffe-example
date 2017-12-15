@@ -1,6 +1,7 @@
 {
   "variables": {
-    "region": "{{env `TF_VAR_REGION`}}"
+    "region": "{{env `TF_VAR_REGION`}}",
+    "demo_name": "{{env `demo_name`}}"
   },
   "builders": [
 	{
@@ -26,7 +27,7 @@
     ],
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
-    "ami_name": "drew_demo_agent_{{timestamp}}"
+    "ami_name": "{{user `demo_name`}}_agent_{{timestamp}}"
 	},
 
 	{
@@ -52,7 +53,7 @@
     ],
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
-    "ami_name": "drew_demo_server{{timestamp}}"
+    "ami_name": "{{user `demo_name`}}_server_{{timestamp}}"
   }],
 
     "provisioners": [
