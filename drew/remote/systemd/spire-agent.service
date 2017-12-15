@@ -1,0 +1,14 @@
+[Unit]
+Description=spire-agent
+
+[Service]
+Type=simple
+User=ubuntu
+Restart=always
+RestartSec=3
+WorkingDirectory=/opt/spire
+ExecStart=/opt/spire/spire-agent run
+
+[Install]
+WantedBy=multi-user.target
+

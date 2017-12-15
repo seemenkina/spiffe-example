@@ -1,0 +1,82 @@
+{
+  "variables": {
+    "region": "{{env `TF_VAR_REGION`}}",
+    "demo_name": "{{env `demo_name`}}"
+  },
+  "builders": [
+	{
+	"name": "agent",
+    "type": "amazon-ebs",
+    "region": "{{user `region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+	},
+    "ami_block_device_mappings": [
+		{
+		  "device_name": "/dev/sda1",
+		  "volume_type": "standard",
+		  "volume_size": "5",
+		  "delete_on_termination": true
+		}
+    ],
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "{{user `demo_name`}}_agent_{{timestamp}}"
+	},
+
+	{
+	"name": "server",
+    "type": "amazon-ebs",
+    "region": "{{user `region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+	},
+    "ami_block_device_mappings": [
+		{
+		  "device_name": "/dev/sda1",
+		  "volume_type": "standard",
+		  "volume_size": "5",
+		  "delete_on_termination": true
+		}
+    ],
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "{{user `demo_name`}}_server_{{timestamp}}"
+  }],
+
+    "provisioners": [
+	{
+	"type": "file",
+      "source": "remote",
+      "destination": "/tmp/"
+	},
+	{
+	"only": ["agent"],
+	"type": "shell",
+      "inline":[
+		  "/tmp/remote/install_spire.sh agent",
+		  "/tmp/remote/install_sidecar.sh"
+	  ]
+	},
+	{
+	"only": ["server"],
+	"type": "shell",
+      "inline":[
+		  "/tmp/remote/install_spire.sh server"
+	  ]
+	}
+	]
+}
+
