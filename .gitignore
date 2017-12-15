@@ -12,5 +12,5 @@
 terraform.tfstate
 terraform.tfstate.backup
 .terraform
-demo_ssh_key
-demo_ssh_key.pub
+*_ssh_key
+*_ssh_key.pub

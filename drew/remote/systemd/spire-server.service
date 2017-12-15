@@ -1,0 +1,12 @@
+[Unit]
+Description=spire-server
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/spire
+ExecStart=/opt/spire/spire-server run
+
+[Install]
+WantedBy=multi-user.target
+
