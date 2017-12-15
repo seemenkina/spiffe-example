@@ -4,7 +4,7 @@ set -x
 
 mode="$1"
 
-SPIRE_TGZ="https://github.com/spiffe/spire/releases/download/0.3pre1/spire-0.3pre1-linux-x86_64-glibc.tar.gz"
+SPIRE_TGZ="https://github.com/spiffe/spire/releases/download/0.3/spire-0.3-linux-x86_64-glibc.tar.gz"
 AWS_IID_TGZ="https://github.com/spiffe/aws-iid-attestor/releases/download/0.1/nodeattestor-aws_iid_0.1_linux_x86_64.tar.gz"
 AWS_RES_TGZ="https://github.com/spiffe/aws-resolver/releases/download/0.1/noderesolver-aws_0.1_linux_x86_64.tar.gz"
 

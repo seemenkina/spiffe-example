@@ -97,6 +97,15 @@ resource "aws_security_group_rule" "https" {
   security_group_id = "${aws_security_group.default.id}"
 }
 
+resource "aws_security_group_rule" "tcp" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.default.id}"
+}
+
 resource "aws_security_group_rule" "ssh" {
   type              = "ingress"
   from_port         = 22
