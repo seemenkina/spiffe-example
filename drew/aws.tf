@@ -129,7 +129,7 @@ data "aws_caller_identity" "current" {}
 data "aws_ami" "agent" {
   filter {
     name   = "name"
-    values = ["drew_demo_agent_*"]
+    values = ["${random_pet.demo.id}_agent*"]
   }
 
   most_recent = true
@@ -139,7 +139,7 @@ data "aws_ami" "agent" {
 data "aws_ami" "server" {
   filter {
     name   = "name"
-    values = ["drew_demo_server*"]
+    values = ["${random_pet.demo.id}_server*"]
   }
 
   most_recent = true
