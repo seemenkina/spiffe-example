@@ -19,6 +19,6 @@ ssh_agent:
 	./tf.sh ssh agent
 
 show:
-	./tf.sg agents
+	./tf.sh agents
 
 

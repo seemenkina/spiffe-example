@@ -23,7 +23,7 @@ tf_env() {
 
 tf_packer() {
 	terraform get
-	terraform apply -target=random_pet.demo >/dev/null
+	terraform apply -target=random_pet.demo -auto-approve
 	eval $(tf_env)
 	export demo_name
 	packer build packer.json
