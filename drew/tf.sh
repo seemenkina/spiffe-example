@@ -30,8 +30,27 @@ tf_packer() {
 }
 
 tf_agents() {
+	local _n _i=1
 	eval $(tf_env)
-	aws --output text ec2 describe-instances --filter Name=tag:Name,Values=${demo_name}_spot_agent | grep INSTANCES | awk '{print $17}'
+	for _n in $(aws --output text ec2 describe-instances \
+		--filter Name=tag:Name,Values=${demo_name}_spot_agent \
+		| grep INSTANCES | awk '{print $17}'); do
+			echo "public_ip_agent$((_i++))=$_n"
+	done
+}
+
+tf_update() {
+	local _tgz="$2"
+	local _n
+
+	eval $(tf_env)
+	eval $(tf_agents)
+
+	for _n in $public_ip_server $public_ip_agent1 $public_ip_agent2; do
+		echo "=== $_n"
+		cat $_tgz | ssh -i drew_ssh_key ubuntu@${_n} \
+			tar --directory=/opt --exclude=spire/conf -xvzf -
+	done
 }
 
 tf_ssh() {
@@ -49,6 +68,7 @@ case $1 in
 	env)	tf_env ;;
 	ssh)	tf_ssh "$@" ;;
 	agents)	tf_agents ;;
+	update)	tf_update "$@" ;;
 	*)		terraform get
 			terraform "$@"
 			;;
