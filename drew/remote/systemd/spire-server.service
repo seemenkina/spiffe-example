@@ -6,6 +6,7 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/opt/spire
 ExecStart=/opt/spire/spire-server run
+ExecStartPost=/opt/spire/register.sh
 
 [Install]
 WantedBy=multi-user.target
