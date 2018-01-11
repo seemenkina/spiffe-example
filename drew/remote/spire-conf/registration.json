@@ -7,7 +7,7 @@
                     "value": "tag:spire:demo"
                 }
             ],
-            "spiffe_id": "spiffe://example.org/aws",
+            "spiffe_id": "spiffe://example.org/aws_demo_instance",
             "parent_id": "spiffe://example.org/cp",
             "ttl": 200
         },
@@ -19,7 +19,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload001",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -31,7 +31,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload002",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -43,7 +43,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload003",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -55,7 +55,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload004",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -67,7 +67,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload005",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -79,7 +79,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload006",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -91,7 +91,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload007",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -103,7 +103,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload008",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -115,7 +115,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload009",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -127,7 +127,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload010",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -139,7 +139,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload011",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -151,7 +151,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload012",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -163,7 +163,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload013",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -175,7 +175,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload014",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -187,7 +187,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload015",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -199,7 +199,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload016",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -211,7 +211,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload017",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -223,7 +223,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload018",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -235,7 +235,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload019",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -247,7 +247,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload020",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -259,7 +259,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload021",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -271,7 +271,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload022",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -283,7 +283,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload023",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -295,7 +295,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload024",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -307,7 +307,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload025",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -319,7 +319,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload026",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -331,7 +331,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload027",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -343,7 +343,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload028",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -355,7 +355,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload029",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -367,7 +367,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload030",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -379,7 +379,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload031",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -391,7 +391,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload032",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -403,7 +403,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload033",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -415,7 +415,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload034",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -427,7 +427,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload035",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -439,7 +439,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload036",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -451,7 +451,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload037",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -463,7 +463,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload038",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -475,7 +475,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload039",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -487,7 +487,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload040",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -499,7 +499,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload041",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -511,7 +511,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload042",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -523,7 +523,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload043",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -535,7 +535,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload044",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -547,7 +547,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload045",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -559,7 +559,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload046",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -571,7 +571,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload047",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -583,7 +583,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload048",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -595,7 +595,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload049",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -607,7 +607,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload050",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -619,7 +619,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload051",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -631,7 +631,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload052",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -643,7 +643,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload053",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -655,7 +655,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload054",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -667,7 +667,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload055",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -679,7 +679,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload056",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -691,7 +691,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload057",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -703,7 +703,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload058",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -715,7 +715,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload059",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -727,7 +727,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload060",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -739,7 +739,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload061",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -751,7 +751,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload062",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -763,7 +763,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload063",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -775,7 +775,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload064",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -787,7 +787,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload065",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -799,7 +799,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload066",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -811,7 +811,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload067",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -823,7 +823,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload068",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -835,7 +835,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload069",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -847,7 +847,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload070",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -859,7 +859,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload071",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -871,7 +871,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload072",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -883,7 +883,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload073",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -895,7 +895,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload074",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -907,7 +907,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload075",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -919,7 +919,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload076",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -931,7 +931,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload077",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -943,7 +943,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload078",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -955,7 +955,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload079",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -967,7 +967,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload080",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -979,7 +979,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload081",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -991,7 +991,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload082",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1003,7 +1003,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload083",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1015,7 +1015,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload084",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1027,7 +1027,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload085",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1039,7 +1039,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload086",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1051,7 +1051,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload087",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1063,7 +1063,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload088",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1075,7 +1075,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload089",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1087,7 +1087,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload090",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1099,7 +1099,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload091",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1111,7 +1111,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload092",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1123,7 +1123,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload093",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1135,7 +1135,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload094",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1147,7 +1147,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload095",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1159,7 +1159,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload096",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1171,7 +1171,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload097",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1183,7 +1183,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload098",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         },
 
@@ -1195,7 +1195,7 @@
                 }
             ],
             "spiffe_id": "spiffe://example.org/workload099",
-            "parent_id": "spiffe://example.org/cp",
+            "parent_id": "spiffe://example.org/aws_demo_instance",
             "ttl": 200
         }
 	]
