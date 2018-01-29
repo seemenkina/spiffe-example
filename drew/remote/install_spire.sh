@@ -5,9 +5,9 @@ set -x
 NUM_WORKLOAD=${NUM_WORKLOAD:-10}
 
 #SPIRE_TGZ="https://github.com/spiffe/spire/releases/download/0.3pre1/spire-0.3pre1-linux-x86_64-glibc.tar.gz"
-SPIRE_TGZ="https://s3.us-east-2.amazonaws.com/scytale-artifacts/spire/spire-156db7c-linux-x86_64-glibc.tar.gz"
+SPIRE_TGZ="https://s3.us-east-2.amazonaws.com/scytale-artifacts/spire/spire-c37711f-linux-x86_64-glibc.tar.gz"
 AWS_IID_TGZ="https://github.com/spiffe/aws-iid-attestor/releases/download/0.1/nodeattestor-aws_iid_0.1_linux_x86_64.tar.gz"
-AWS_RES_TGZ="https://github.com/spiffe/aws-resolver/releases/download/0.1/noderesolver-aws_0.1_linux_x86_64.tar.gz"
+AWS_RES_TGZ="https://github.com/spiffe/aws-resolver/releases/download/0.1.1/noderesolver-aws_0.1.1_linux_x86_64.tar.gz"
 
 mode="$1"
 sudo rm -rf /opt/spire*
@@ -36,12 +36,12 @@ User=user3${_n}
 Restart=always
 RestartSec=3
 WorkingDirectory=/opt/spire
-ExecStart=/opt/spire/functional/tools/workload -timeout 3
+ExecStart=/opt/spire/functional/tools/workload -timeout 120
 
 [Install]
 WantedBy=multi-user.target
 _EOF
-    sudo adduser --quiet --system --uid 3${_n} user3${_n}
+	sudo adduser --quiet --system --uid 3${_n} user3${_n}
 	sudo systemctl enable spire-workload-${_n}.service
 }
 
