@@ -55,9 +55,10 @@ tf_update() {
 
 tf_ssh() {
 	eval $(tf_env)
+	eval $(tf_agents)
 	case $2 in
 		server) connect_host=$public_ip_server ;;
-		agent) connect_host=$(tf_agents | head -1) ;;
+		agent) connect_host=$public_ip_agent1 ;;
 		*) connect_host="$2" ;;
 	esac
 	ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $ssh_priv_key ubuntu@$connect_host

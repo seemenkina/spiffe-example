@@ -32,7 +32,7 @@ Description=spire-agent-${_n}
 
 [Service]
 Type=simple
-User=3${_n}
+User=user3${_n}
 Restart=always
 RestartSec=3
 WorkingDirectory=/opt/spire
@@ -41,6 +41,7 @@ ExecStart=/opt/spire/functional/tools/workload -timeout 3
 [Install]
 WantedBy=multi-user.target
 _EOF
+    sudo adduser --quiet --system --uid 3${_n} user3${_n}
 	sudo systemctl enable spire-workload-${_n}.service
 }
 
