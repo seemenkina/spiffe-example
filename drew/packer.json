@@ -66,8 +66,7 @@
 	"only": ["agent"],
 	"type": "shell",
       "inline":[
-		  "/tmp/remote/install_spire.sh agent",
-		  "/tmp/remote/install_sidecar.sh"
+		  "/tmp/remote/install_spire.sh agent"
 	  ]
 	},
 	{
