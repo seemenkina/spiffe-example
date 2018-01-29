@@ -5,7 +5,7 @@ declare -rx TF_VAR_AZ="a"
 declare -rx TF_VAR_CIDR="10.71.0.0/20"
 
 declare -rx TF_VAR_TYPE="t2.micro"
-declare -rx TF_VAR_SIZE="2"
+declare -rx TF_VAR_SIZE="10"
 declare -rx TF_VAR_PRICE="0.01"
 
 declare -rx TF_VAR_SSH_PRIV_KEY="$PWD/drew_ssh_key"
