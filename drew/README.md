@@ -27,16 +27,28 @@ To launch or destroy the demo:
 `make launch`
 `make destroy`
 
-To ssh to the server:
+To ssh to the server or the first agent instance:
 
-`make ssh`
+`make ssh_server`
+`make ssh_agent`
 
 ### Modifying the demo
 
 SPIRE configuration and AMI provisioning scripts are in the [remote](/drew/remote)
 directory.
 
-You can change the number of agents in [tf.sh](/drew/tf.sh) (`TF_VAR_SIZE`) and
-the number of workloads per agent in [install_spire.sh](/drew/remote/install_spire.sh) (`NUM_WORKLOAD`).
+Configurable variables in [drew.sh](/drew/drew.sh):
 
-To change the installed SPIRE versions, edit [install_spire.sh](/drew/remote/install_spire.sh).
+Demo-specific:
+* `TF_VAR_AGENTS` - number of agent instances to launch
+* `TF_VAR_WORKLOADS` - number of workloads per agent
+* `TF_VAR_SPIRE_TGZ` - URL to SPIRE build artifact (not release tarball)
+* `TF_VAR_AWS_IID_TGZ` - URL to SPIRE AWS IID attestor tarball
+* `TF_VAR_AWS_RES_TGZ` - URL to SPIRE AWS node resolver tarball
+
+AWS specific:
+* `TF_VAR_REGION` - default us-eaast-2
+* `TF_VAR_AZ` - default us-east-2a
+* `TF_VAR_CIDR` - VPC network, default 10.71.0.0/20
+* `TF_VAR_TYPE` - EC2 instance type, default t2.micro
+* `TF_VAR_PRICE` - spot instance bid price, default $0.01

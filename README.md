@@ -20,6 +20,10 @@ Demonstrates two workloads communicating over mutually authenticated Ghostunnel 
 
 Demonstrates two workloads communicating via mutually authenticated Envoys using SVIDs generated through AWS instance attestation. 
 
+**[drew](drew) - Server and Agent Scale and Performance**
+
+Demonstrates 100 workloads on 100 servers managed by one spire-server
+
 ## Infrastructure
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
