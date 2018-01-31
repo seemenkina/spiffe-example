@@ -6,7 +6,7 @@ variable "SSH_PUB_KEY" {}
 variable "TYPE" {
 }
 
-variable "SIZE" {
+variable "AGENTS" {
 }
 
 variable "PRICE" {
@@ -216,7 +216,7 @@ resource "aws_iam_policy_attachment" "fleet_tag" {
 
 resource "aws_spot_fleet_request" "fleet" {
   spot_price      = "${var.PRICE}"
-  target_capacity = "${var.SIZE}"
+  target_capacity = "${var.AGENTS}"
 
   iam_fleet_role                      = "${aws_iam_role.fleet.arn}"
   terminate_instances_with_expiration = true

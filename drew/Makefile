@@ -1,24 +1,24 @@
 
 
 init:
-	./tf.sh init
+	./drew.sh.sh init
 
 ami:
-	./tf.sh packer
+	./drew.sh packer
 
 launch:
-	./tf.sh apply -auto-approve
+	./drew.sh apply -auto-approve
 
 destroy:
-	./tf.sh destroy -force
+	./drew.sh destroy -force
 
 ssh_server:
-	./tf.sh ssh server
+	./drew.sh ssh server
 
 ssh_agent:
-	./tf.sh ssh agent
+	./drew.sh ssh agent
 
 show:
-	./tf.sh agents
+	./drew.sh agents
 
 
