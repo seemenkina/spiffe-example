@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+[[ $DEBUG ]] && set -x
 
 NUM_WORKLOAD=${NUM_WORKLOAD:-10}
 
@@ -25,7 +25,7 @@ sudo cp /tmp/remote/systemd/spire-${mode}.service /etc/systemd/system/
 sudo systemctl enable spire-${mode}.service
 
 mk_sysd() {
-	local _n="$(printf '%03d' $1)"
+	local _n=$1
 	cat << _EOF | sudo tee /etc/systemd/system/spire-workload-${_n}.service >/dev/null
 [Unit]
 Description=spire-agent-${_n}
@@ -41,17 +41,19 @@ ExecStart=/opt/spire/functional/tools/workload -timeout 120
 [Install]
 WantedBy=multi-user.target
 _EOF
+	sudo deluser --quiet user3${_n}
 	sudo adduser --quiet --system --uid 3${_n} user3${_n}
 	sudo systemctl enable spire-workload-${_n}.service
 }
 
-echo "$mode" | sudo tee /etc/hostname >/dev/null
-echo "127.0.0.1 $mode" | sudo tee -a /etc/hosts >/dev/null
-sudo hostname $mode
-
 if [[ $mode == "agent" ]]; then
 	for n in $(seq 0 $((NUM_WORKLOAD - 1))); do
-		mk_sysd $n
+		n="$(printf '%03d' $n)"
+		if [[ $SSH_CLIENT ]]; then
+			sudo systemctl restart spire-workload-${n}.service
+		else
+			mk_sysd $n
+		fi
 	done
 else
 	sudo cp /tmp/remote/register.sh /opt/spire/

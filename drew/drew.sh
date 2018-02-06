@@ -1,15 +1,15 @@
 #!/bin/bash
 
-declare -rx TF_VAR_SPIRE_TGZ="https://s3.us-east-2.amazonaws.com/scytale-artifacts/spire/spire-c37711f-linux-x86_64-glibc.tar.gz"
-declare -rx TF_VAR_AWS_IID_TGZ="https://github.com/spiffe/aws-iid-attestor/releases/download/0.1/nodeattestor-aws_iid_0.1_linux_x86_64.tar.gz"
-declare -rx TF_VAR_AWS_RES_TGZ="https://github.com/spiffe/aws-resolver/releases/download/0.1.1/noderesolver-aws_0.1.1_linux_x86_64.tar.gz"
+declare -rx TF_VAR_SPIRE_TGZ="${SPIRE_TGZ:-https://s3.us-east-2.amazonaws.com/scytale-artifacts/spire/spire-c37711f-linux-x86_64-glibc.tar.gz}"
+declare -rx TF_VAR_AWS_IID_TGZ="${AWS_IID_TGZ:-https://github.com/spiffe/aws-iid-attestor/releases/download/0.1/nodeattestor-aws_iid_0.1_linux_x86_64.tar.gz}"
+declare -rx TF_VAR_AWS_RES_TGZ="${AWS_RES_TGZ:-https://github.com/spiffe/aws-resolver/releases/download/0.1.1/noderesolver-aws_0.1.1_linux_x86_64.tar.gz}"
 
 declare -rx TF_VAR_REGION="us-east-2"
 declare -rx TF_VAR_AZ="a"
 declare -rx TF_VAR_CIDR="10.71.0.0/20"
 
 declare -rx TF_VAR_TYPE="t2.micro"
-declare -rx TF_VAR_AGENTS="${DEMO_AGENTS:-2}"
+declare -rx TF_VAR_AGENTS="${DEMO_AGENTS:-4}"
 declare -rx TF_VAR_WORKLOADS="${DEMO_WORKLOADS:-20}"
 declare -rx TF_VAR_PRICE="0.01"
 
@@ -37,36 +37,67 @@ drew_packer() {
 drew_agents() {
 	local _n _i=1
 	eval $(drew_env)
-	for _n in $(aws --output text ec2 describe-instances \
-		--filter Name=tag:Name,Values=${demo_name}_spot_agent \
+	for _n in $(AWS_REGION=$TF_VAR_REGION aws --output text ec2 describe-instances \
+		--filter Name=tag:Name,Values=${demo_name}_spot_agent Name=instance-state-name,Values=running \
 		| grep INSTANCES | awk '{print $17}'); do
 			echo "public_ip_agent$((_i++))=$_n"
 	done
 }
 
+_ssh() {
+	ssh -q -i drew_ssh_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l ubuntu $@
+}
+
+_update() {
+	echo "=== $1 $2"
+	tar -cf - remote | _ssh $2 tar --directory=/tmp -xf -
+	_ssh $2 "DEBUG=$DEBUG NUM_WORKLOAD=$TF_VAR_WORKLOADS SPIRE_TGZ=$SPIRE_TGZ \
+		AWS_RES_TGZ=$AWS_RES_TGZ AWS_IID_TGZ=$AWS_IID_TGZ /tmp/remote/install_spire.sh $1"
+}
+
 drew_update() {
-	local _tgz="$2"
-	local _n
+	local _n _agents _tgz
 
 	eval $(drew_env)
-	eval $(drew_agents)
+	_agents="$(drew_agents | cut -d= -f2)"
 
-	for _n in $public_ip_server $public_ip_agent1 $public_ip_agent2; do
-		echo "=== $_n"
-		cat $_tgz | ssh -i drew_ssh_key ubuntu@${_n} \
-			tar --directory=/opt --exclude=spire/conf -xvzf -
+	# messy
+	if [[ $SPIRE_TGZ ]]; then
+		aws --region $TF_VAR_REGION s3 cp --acl public-read $SPIRE_TGZ s3://$artifact_bucket_id/
+		SPIRE_TGZ="https://${artifact_bucket_name}/$(basename $SPIRE_TGZ)"
+	else
+		SPIRE_TGZ=$TF_VAR_SPIRE_TGZ
+	fi
+	if [[ $AWS_RES_TGZ ]]; then
+		aws --region $TF_VAR_REGION s3 cp --acl public-read $AWS_RES_TGZ s3://$artifact_bucket_id/
+		AWS_RES_TGZ="https://${artifact_bucket_name}/$(basename $AWS_RES_TGZ)"
+	else
+		AWS_RES_TGZ=$TF_VAR_AWS_RES_TGZ
+	fi
+	if [[ $AWS_IID_TGZ ]]; then
+		aws --region $TF_VAR_REGION s3 cp --acl public-read $AWS_IID_TGZ s3://$artifact_bucket_id/
+		AWS_RES_TGZ="https://${artifact_bucket_name}/$(basename $AWS_IID_TGZ)"
+	else
+		AWS_IID_TGZ=$TF_VAR_AWS_IID_TGZ
+	fi
+
+	_update server $public_ip_server
+	for _n in $_agents; do
+		_update agent $_n
 	done
 }
 
 drew_ssh() {
+	local _conect_host
+
 	eval $(drew_env)
 	eval $(drew_agents)
 	case $2 in
-		server) connect_host=$public_ip_server ;;
-		agent) connect_host=$public_ip_agent1 ;;
-		*) connect_host="$2" ;;
+		server) _connect_host=$public_ip_server ;;
+		agent) _connect_host=$public_ip_agent1 ;;
+		*) _connect_host="$2" ;;
 	esac
-	ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $ssh_priv_key ubuntu@$connect_host
+	_ssh $_connect_host
 }
 
 case $1 in

@@ -254,6 +254,19 @@ resource "aws_instance" "server" {
   associate_public_ip_address = true
 }
 
+resource "aws_s3_bucket" "artifacts" {
+  bucket = "${replace(random_pet.demo.id,"_","-")}-artifacts"
+  acl    = "public-read"
+}
+
+output "artifact_bucket_name" {
+  value = "${aws_s3_bucket.artifacts.bucket_domain_name}"
+}
+
+output "artifact_bucket_id" {
+  value = "${aws_s3_bucket.artifacts.id}"
+}
+
 output "public_ip_server" {
   value = "${aws_instance.server.public_ip}"
 }
