@@ -46,8 +46,8 @@ WantedBy=multi-user.target
 _EOF
 	if ! id $_user >/dev/null 2>&1; then
 		sudo adduser --quiet --system --uid $_uid $_user
+		sudo systemctl enable spire-workload-${_n}.service
 	fi
-	sudo systemctl enable spire-workload-${_n}.service
 	if [[ -n $RECONFIGURE ]]; then
 		sudo systemctl restart spire-workload-${_n}.service
 	fi
@@ -57,7 +57,20 @@ if [[ $mode == "agent" ]]; then
 	for n in $(seq 0 $((NUM_WORKLOAD - 1))); do
 		mk_sysd $n
 	done
-else
+	cat << _EOF | sudo tee /etc/rsyslog.d/99-spire-agent.conf >/dev/null
+*.*     @@10.71.0.10:514
+_EOF
+fi
+
+if [[ $mode == "server" ]]; then
 	sudo cp /tmp/remote/register.sh /opt/spire/
+	cat << _EOF | sudo tee /etc/rsyslog.d/99-spire-agent.conf >/dev/null
+module(load="imtcp")
+input(type="imtcp" port="514")
+_EOF
+fi
+
+if [[ -z $RECONFIGURE ]]; then
+	sudo systemctl restart rsyslog
 fi
 
