@@ -6,6 +6,7 @@ declare -rx TF_VAR_AWS_RES_TGZ="${AWS_RES_TGZ:-https://github.com/spiffe/aws-res
 
 declare -rx TF_VAR_REGION="us-east-2"
 declare -rx TF_VAR_AZ="a"
+# note that you will have to change the server address elsewhere if you update the VPC CIDR
 declare -rx TF_VAR_CIDR="10.71.0.0/20"
 
 declare -rx TF_VAR_TYPE="t2.micro"
