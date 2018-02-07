@@ -257,6 +257,7 @@ resource "aws_instance" "server" {
 resource "aws_s3_bucket" "artifacts" {
   bucket = "${replace(random_pet.demo.id,"_","-")}-artifacts"
   acl    = "public-read"
+  force_destroy = true
 }
 
 output "artifact_bucket_name" {

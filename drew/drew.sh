@@ -51,7 +51,7 @@ _ssh() {
 _update() {
 	echo "=== $1 $2"
 	tar -cf - remote | _ssh $2 tar --directory=/tmp -xf -
-	_ssh $2 "DEBUG=$DEBUG NUM_WORKLOAD=$TF_VAR_WORKLOADS SPIRE_TGZ=$SPIRE_TGZ \
+	_ssh $2 "DEBUG=$DEBUG RECONFIGURE=true NUM_WORKLOAD=$TF_VAR_WORKLOADS SPIRE_TGZ=$SPIRE_TGZ \
 		AWS_RES_TGZ=$AWS_RES_TGZ AWS_IID_TGZ=$AWS_IID_TGZ /tmp/remote/install_spire.sh $1"
 }
 

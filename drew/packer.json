@@ -73,6 +73,7 @@
 		  "/tmp/remote/install_spire.sh agent"
     ],
 	"environment_vars":[
+      "DEBUG=true",
       "NUM_WORKLOAD={{user `WORKLOADS`}}",
       "SPIRE_TGZ={{user `SPIRE_TGZ`}}",
       "AWS_IID_TGZ={{user `AWS_IID_TGZ`}}",
@@ -86,6 +87,7 @@
 	  "/tmp/remote/install_spire.sh server"
 	],
 	"environment_vars":[
+      "DEBUG=true",
       "NUM_WORKLOAD={{user `WORKLOADS`}}",
       "SPIRE_TGZ={{user `SPIRE_TGZ`}}",
       "AWS_IID_TGZ={{user `AWS_IID_TGZ`}}",
