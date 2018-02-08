@@ -70,7 +70,7 @@ input(type="imtcp" port="514")
 _EOF
 fi
 
-if [[ -z $RECONFIGURE ]]; then
+if [[ -n $RECONFIGURE ]]; then
 	sudo systemctl restart rsyslog
 fi
 
