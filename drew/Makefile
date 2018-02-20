@@ -1,7 +1,7 @@
 
 
 init:
-	./drew.sh.sh init
+	./drew.sh init
 
 ami:
 	./drew.sh packer

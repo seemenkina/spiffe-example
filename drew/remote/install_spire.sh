@@ -18,10 +18,12 @@ curl --silent --location $AWS_RES_TGZ | sudo tar --directory /opt/spire* -xzf -
 
 if [[ $mode == "server" ]]; then
     sudo rm -rf /opt/grok_exporter*
-    curl --silent --location $GROK_EXPORTR_TGZ | sudo tar --directory /opt -xzf -
-    sudo cp /tmp/remote/grok_config.yml /opt/grok_config.yml
-    sudo cp /tmp/remote/spire /opt/grok_exporter/patterns/spire
+    sudo apt install unzip
+    curl --silent --location $GROK_EXPORTR_TGZ -o grok_exporter.zip;sudo unzip grok_exporter.zip -d /opt; rm grok_exporter.zip; 
+    sudo ln -s /opt/grok_exporter* /opt/grok_exporter
+    sudo cp /tmp/remote/grok_config.yml /opt/grok_exporter/grok_config.yml
     sudo chown -R ubuntu:ubuntu /opt/grok_exporter*
+    sudo cp /tmp/remote/spire /opt/grok_exporter/patterns/spire
     sudo cp /tmp/remote/systemd/grok-exporter.service /etc/systemd/system/
     sudo systemctl enable grok-exporter.service
 fi

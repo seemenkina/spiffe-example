@@ -89,6 +89,15 @@ resource "aws_security_group_rule" "self" {
   security_group_id = "${aws_security_group.default.id}"
 }
 
+resource "aws_security_group_rule" "grok_exporter" {
+  type              = "ingress"
+  from_port         = 8089
+  to_port           = 8089
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.default.id}"
+}
+
 resource "aws_security_group_rule" "https" {
   type              = "ingress"
   from_port         = 80
