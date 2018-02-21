@@ -1,0 +1,25 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /var/log/syslog
+    readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
+grok:
+    patterns_dir: /opt/grok_exporter/patterns
+metrics:
+    - type: counter
+      name: csr_request
+      help: number of CSR requests
+      match: '%{SPIRE_SERVER_CSR_REQUEST:csr}'
+      labels:
+          csr: '{{.csr}}'
+    - type: counter
+      name: node_attestation_request
+      help: number of node_attestaion requests
+      match: '%{SPIRE_SERVER_NODE_ATTESTATION:node_attestation}'
+      labels:
+          node_attestation: '{{.node_attestation}}'
+
+server:
+    host: 0.0.0.0
+    port: 8089

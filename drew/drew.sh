@@ -3,7 +3,7 @@
 declare -rx TF_VAR_SPIRE_TGZ="${SPIRE_TGZ:-https://s3.us-east-2.amazonaws.com/scytale-artifacts/spire/spire-c37711f-linux-x86_64-glibc.tar.gz}"
 declare -rx TF_VAR_AWS_IID_TGZ="${AWS_IID_TGZ:-https://github.com/spiffe/aws-iid-attestor/releases/download/0.1/nodeattestor-aws_iid_0.1_linux_x86_64.tar.gz}"
 declare -rx TF_VAR_AWS_RES_TGZ="${AWS_RES_TGZ:-https://github.com/spiffe/aws-resolver/releases/download/0.1.1/noderesolver-aws_0.1.1_linux_x86_64.tar.gz}"
-
+declare -rx TF_VAR_GROK_EXPORTR_TGZ="${GROK_EXPORTR_TGZ:-https://github.com/fstab/grok_exporter/releases/download/v0.2.4/grok_exporter-0.2.4.linux-amd64.zip}"
 declare -rx TF_VAR_REGION="us-east-2"
 declare -rx TF_VAR_AZ="a"
 # note that you will have to change the server address elsewhere if you update the VPC CIDR

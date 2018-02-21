@@ -9,12 +9,24 @@ NUM_WORKLOAD=${NUM_WORKLOAD:-10}
 #SPIRE_TGZ
 #AWS_IID_TGZ
 #AWS_RES_TGZ
-
+#GROK_EXPORTR_TGZ
 mode="$1"
 sudo rm -rf /opt/spire*
 curl --silent --location $SPIRE_TGZ | sudo tar --directory /opt -xzf -
 curl --silent --location $AWS_IID_TGZ | sudo tar --directory /opt/spire* -xzf -
 curl --silent --location $AWS_RES_TGZ | sudo tar --directory /opt/spire* -xzf -
+
+if [[ $mode == "server" ]]; then
+    sudo rm -rf /opt/grok_exporter*
+    sudo apt install unzip
+    curl --silent --location $GROK_EXPORTR_TGZ -o grok_exporter.zip;sudo unzip grok_exporter.zip -d /opt; rm grok_exporter.zip; 
+    sudo ln -s /opt/grok_exporter* /opt/grok_exporter
+    sudo cp /tmp/remote/grok_config.yml /opt/grok_exporter/grok_config.yml
+    sudo chown -R ubuntu:ubuntu /opt/grok_exporter*
+    sudo cp /tmp/remote/spire /opt/grok_exporter/patterns/spire
+    sudo cp /tmp/remote/systemd/grok-exporter.service /etc/systemd/system/
+    sudo systemctl enable grok-exporter.service
+fi
 
 cd /opt
 ls opt/spire-* >/dev/null 2>&1 && sudo ln -s spire-* spire

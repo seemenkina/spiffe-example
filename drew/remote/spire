@@ -1,0 +1,2 @@
+SPIRE_SERVER_CSR_REQUEST (%{SYSLOGLINE})((.)*Parsing CSR with SPIFFE ID:(.)*)
+SPIRE_SERVER_NODE_ATTESTATION (%{SYSLOGLINE})((.)*Received node attestation request(.)*)
