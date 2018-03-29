@@ -11,12 +11,27 @@ The SPIFFE sidecar process is responsible for starting and managing the envoy pr
 
 ![Cadfael Diagram](envoy_cadfael.png)
 
-## Creating the demo
-
-Prerequisites:
+Pre-requisites:
+* [Terraform](https://www.terraform.io/downloads.html) installed on the host machine
 * GNU screen >=4.06 on the host machine (optional, for split-screen demo)
+* An AWS account
+* An IAM User with the following policies:
+ * AmazonEC2FullAccess
+ * IAMFullAccess
 
- `make up` creates the demo setup on aws EC2 instances:
+### Set up 
+
+First, obtain an access key and secret for the IAM User described above, and make sure they - along with your preferred AWS region to deploy into - are available to Terraform. 
+
+The easiest way to do this is with Environment Variables, eg.
+
+```
+export AWS_ACCESS_KEY_ID="<your-access-key>"
+export AWS_SECRET_ACCESS_KEY="<your-access-key-secret>"
+export AWS_DEFAULT_REGION="<your-aws-region-id-of-choice>"
+```
+
+Secondly, clone this repository. From the `cadfael` directory, run `make up` to the demo setup on aws EC2 instances:
 
 1. [Setup basic VPC and EC2 setup on AWS](../ec2/README.md)
 1. Launch SPIRE Server as systemd service on the server EC2 instance.

@@ -15,7 +15,7 @@ declare -rx TF_VAR_SCRIPT_DIR="$PWD/../cadfael/remote"
 
 if [[ ! -r $TF_VAR_SSH_PRIV_KEY ]]; then
 	ssh-keygen -N '' -f $TF_VAR_SSH_PRIV_KEY
-	chmo 600 $TF_VAR_SSH_PRIV_KEY
+	chmod 600 $TF_VAR_SSH_PRIV_KEY
 fi
 
 tf_env() {
