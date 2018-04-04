@@ -24,6 +24,10 @@ Demonstrates two workloads communicating via mutually authenticated Envoys using
 
 Demonstrates 100 workloads on 100 servers managed by one spire-server
 
+**[dupin](dupin) - nginx with SPIFFE support**
+
+Demonstrates the use of the SPIFFE Workload API to automatically get X.509 certificates natively in nginx, with no helper. Connections are accepted or rejected based on allowed SPIFFE IDs.
+
 ## Infrastructure
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
