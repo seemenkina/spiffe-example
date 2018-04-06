@@ -26,7 +26,6 @@ RUN ./install_spire.sh
 # Install spiffe-nginx
 COPY nginx /tmp
 WORKDIR /tmp
-RUN ./vendor.sh
 RUN ./install_nginx.sh
 
 WORKDIR /opt/spiffe-nginx

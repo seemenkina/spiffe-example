@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r NGINX_VERSION="nginx-1.13.9spiffe"
+declare -r NGINX_VERSION="nginx-1.13.9spiffe2"
 declare -r NGINX_URL="https://s3.us-east-2.amazonaws.com/scytale-artifacts/nginx/${NGINX_VERSION}.tgz"
 declare -r NGINX_DIR="/usr/local/nginx"
 declare -r NGINX_LOGS_DIR="${NGINX_DIR}/logs"
@@ -28,4 +28,4 @@ useradd -m nginx-blog
 echo 'chmod 777 /dev/stdout' >> ~/.bashrc
 
 # Clean installation files
-rm install_nginx.sh vendor.sh
+rm install_nginx.sh
