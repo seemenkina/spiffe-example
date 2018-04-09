@@ -39,8 +39,10 @@ When the server is proxying connections to another server, the following directi
 
 1. Run `make`. This builds the docker image.
 
-2. Run `make demo`. This will show four terminals, named `0 spire-server`, `1 spire-agent`, `2 nginx-blog` and `3 nginx-fe`.
+2. Run `make demo`. This will show four terminals, named `0 spire-server`, `1 spire-agent`, `2 nginx-blog`, `3 nginx-fe`, `4 certs` and `5 nginx-conf`.
 - `0 spire-server` can be used to launch `spire-server`.
 - `1 spire-agent` can be used to create the registration entries and launch `spire-agent`.
 - `2 nginx-blog` can be used to launch nginx as the `nginx-blog` user (that is already created) using the [nginx_blog.conf](spiffe-nginx/configurations/nginx_blog.conf) configuration file. This can be done running `su -c "./nginx -c /usr/local/nginx/nginx_blog.conf” nginx-blog`.
 - `3 nginx-fe` can be used to launch nginx as root using the [nginx_fe.conf](spiffe-nginx/configurations/nginx_fe.conf) configuration file. This can be done running `./nginx /usr/local/nginx/nginx_fe.conf`.
+- `4 certs` can be used to analyze consumed certificates.
+- `5 nginx-conf` can be used to display and edit nginx configurations.

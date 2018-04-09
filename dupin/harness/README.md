@@ -1,5 +1,5 @@
 
-Creates a screen (version >=4.06 required) session with 4 panes, with
+Creates a screen (version >=4.06 required) session with 6 panes, with
 connections to spiffe-nginx
 
 Mouse-based focus is supported.
