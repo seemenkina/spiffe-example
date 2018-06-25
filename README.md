@@ -28,6 +28,10 @@ Demonstrates 100 workloads on 100 servers managed by one spire-server
 
 Demonstrates the use of the SPIFFE Workload API to automatically get X.509 certificates natively in nginx, with no helper. Connections are accepted or rejected based on allowed SPIFFE IDs.
 
+**[java-spiffe](java-spiffe) - java with SPIFFE support**
+
+Demonstrates the use of the SPIFFE Workload API to dynamically update the X509 certificates of a custom KeyStore in a Java Security Provider. Connections are established using mTLS validating SPIFFE IDs
+
 ## Infrastructure
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
