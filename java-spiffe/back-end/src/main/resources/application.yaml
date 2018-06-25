@@ -1,0 +1,8 @@
+server:
+  port: 3000
+  ssl:
+      key-store:
+      key-store-password:
+      key-store-type: Spiffe
+      enabled: true
+      client-auth: need
