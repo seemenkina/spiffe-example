@@ -23,16 +23,13 @@ public class ACLManager {
 
     private final String TRUSTED_SERVICES_FILE = "trusted.services.list";
 
-    private static ACLManager INSTANCE;
+    private static final ACLManager INSTANCE = new ACLManager();
 
     public static ACLManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ACLManager();
-        }
         return INSTANCE;
     }
 
-    private List<String> ALLOWED_SPIFFE_IDS;
+    private List<String> allowedSpiffeIds;
 
     /**
      * Private Constructor
@@ -45,13 +42,13 @@ public class ACLManager {
     private ACLManager() {
         String aclFile = System.getProperty(TRUSTED_SERVICES_FILE);
         Validate.isTrue(!isBlank(aclFile), "Trusted Services list file is not configured");
-        ALLOWED_SPIFFE_IDS = loadList(aclFile);
+        allowedSpiffeIds = loadList(aclFile);
 
         //Configure ACL list Updater
         TimerTask updateTask = new FileWatcher(new File(aclFile)) {
             protected void onChange(File file) {
                 LOGGER.info("File " + file.getName() + " have change. Updating ACL List");
-                ALLOWED_SPIFFE_IDS = loadList(aclFile);
+                allowedSpiffeIds = loadList(aclFile);
             }
         };
         Timer timer = new Timer();
@@ -65,7 +62,7 @@ public class ACLManager {
      * @return
      */
     public boolean isAllowed(String spiffeId) {
-        return ALLOWED_SPIFFE_IDS.contains(spiffeId);
+        return allowedSpiffeIds.contains(spiffeId);
     }
 
     /**

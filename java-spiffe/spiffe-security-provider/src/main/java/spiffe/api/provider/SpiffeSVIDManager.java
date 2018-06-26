@@ -26,12 +26,9 @@ public class SpiffeSVIDManager {
 
     private static Logger LOGGER = LoggerFactory.getLogger(SpiffeSVIDManager.class);
 
-    private static SpiffeSVIDManager INSTANCE;
+    private static final SpiffeSVIDManager INSTANCE = new SpiffeSVIDManager();
 
     public static synchronized SpiffeSVIDManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SpiffeSVIDManager();
-        }
         return INSTANCE;
     }
 
