@@ -7,7 +7,7 @@ public abstract class FileWatcher extends TimerTask {
     private long timeStamp;
     private File file;
 
-    public FileWatcher(File file ) {
+    public FileWatcher(File file) {
         this.file = file;
         this.timeStamp = file.lastModified();
     }
