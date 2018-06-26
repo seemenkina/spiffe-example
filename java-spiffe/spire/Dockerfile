@@ -17,3 +17,5 @@ COPY conf/agent.conf conf/agent/agent.conf
 COPY conf/server.conf conf/server/server.conf
 COPY create-user.sh .
 COPY create-entries.sh .
+
+RUN chmod +x create-entries.sh
