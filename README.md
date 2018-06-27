@@ -14,7 +14,7 @@ Demonstrates two workloads communicating over mutually authenticated Ghostunnel 
 
 **[beatrice](beatrice) - Kubernetes Attestation and Ghostunnel verification**
 
-Demonstrates two workloads communicating over mutually authenticated Ghostunnel endpoints using SVIDs automatically provistioned to an attested Kubernetres Pod. 
+Demonstrates two workloads communicating over mutually authenticated Ghostunnel endpoints using SVIDs automatically provisioned to an attested Kubernetes Pod. 
 
 **[cadfael](cadfael) - AWS Attestation and Envoy Verification**
 
@@ -36,11 +36,10 @@ Demonstrates the use of the SPIFFE Workload API to dynamically update the X509 c
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
 
-Creates a Kubernets master and >=1 node in seperate Vagrant VMs.
+Creates a Kubernetes master and >=1 node in separate Vagrant VMs.
 
 **[vagrant_db](vagrant_db) - Local MariaDB "bare metal" with Vagrant**
 
 **[ec2](ec2) - AWS EC2 with Terraform**
 
 Provisions a VPC with three EC2 instances with proper IAM instance roles for the aws-resolver plugin.
-
