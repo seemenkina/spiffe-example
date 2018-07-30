@@ -1,0 +1,55 @@
+static_resources:
+  listeners:
+  - address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 8002
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: service
+              domains:
+              - "*"
+              routes:
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: local_service
+          http_filters:
+          - name: envoy.router
+            config: {}
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            certificate_chain:
+              filename: /tmp/certs/svid.pem
+            private_key:
+              filename: /tmp/certs/svid_key.pem
+            trusted_ca:
+              filename: /tmp/certs/svid_bundle.pem
+          tls_params:
+            ecdh_curves:
+            - X25519:P-256:P-521:P-384
+        verify_subject_alt_name:
+        - spiffe://example.org/front-end
+  clusters:
+  - name: local_service
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: 0.0.0.0
+        port_value: 9001
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001
