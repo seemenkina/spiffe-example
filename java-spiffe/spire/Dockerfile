@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ARG SPIRE_VERSION=0.5.1
+ARG SPIRE_VERSION=0.6.0
 ARG SPIRE_RELEASE=https://github.com/spiffe/spire/releases/download/${SPIRE_VERSION}/spire-${SPIRE_VERSION}-linux-x86_64-glibc.tar.gz
 ARG SPIRE_DIR=/opt/spire
 
@@ -9,8 +9,6 @@ RUN apt-get update \
 
 RUN curl --silent --location $SPIRE_RELEASE | tar -xzf -
 RUN mv spire-${SPIRE_VERSION} ${SPIRE_DIR}
-
-RUN mkdir ${SPIRE_DIR}/.data
 
 WORKDIR ${SPIRE_DIR}
 COPY conf/agent.conf conf/agent/agent.conf

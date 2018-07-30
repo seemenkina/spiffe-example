@@ -29,10 +29,6 @@ public class ACLManager {
         return INSTANCE;
     }
 
-    /**
-     * List of Allowed Spiffe IDs
-     *
-     */
     private List<String> allowedSpiffeIds;
 
     /**
