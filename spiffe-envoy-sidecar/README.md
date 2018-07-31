@@ -2,6 +2,7 @@
 
 This demo shows an example using [Envoy](https://www.envoyproxy.io/docs/envoy/latest/) to handle mTLS connections running 
 along with the [SPIFFE Helper - Sidecar](https://github.com/spiffe/spiffe-helper) to fetch the SVIDs from the Workload API. 
+It's based on SPIRE version 0.6.0.
 
 The **SPIFFE Helper** is a simple utility that works as a _Sidecar_ that fetches asynchronously X.509 SVID certificates 
 from the SPIFFE Workload API, launches the **Envoy** process and continuously gets new SVID certificates before they expire. 
@@ -24,8 +25,6 @@ to reload the certificates.
 Envoy Proxy on the Frontend handles the requests from Tomcat, establishes an mTLS connection with the Envoy Proxy on 
 the Backend using the SVIDs to authenticate itself and validates the peer's identity. 
 Envoy Proxy on the Backend handles the requests from the Frontend and routes them to the Tomcat on its container. 
-
-The SPIRE version is 0.6.0. 
 
 #### Registration Entries
 
