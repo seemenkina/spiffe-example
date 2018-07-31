@@ -1,7 +1,7 @@
 FROM envoyproxy/envoy:latest
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates curl tar gzip default-jre python libltdl7 vim
+  && apt-get install -y --no-install-recommends ca-certificates curl tar gzip default-jre python libltdl7
 
 # Install Spire Agent
 ARG SPIRE_VERSION=0.6.0
