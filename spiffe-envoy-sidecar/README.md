@@ -17,13 +17,15 @@ This demo is composed of 3 containers as seen in the following diagram:
 
 ![envoy-sidecar-diagram](envoy-sidecar-diagram.png)
 
-The _**Sidecar**_ is a process that connects to the [Spire Agent]() through the Workload API and receives the SVIDs
-over a gRPC stream. Each new SVID update is stored in `/tmp/certs` and then a renew signal `SIGHUP` is sent to Envoy process
+The _**Sidecar**_ is a process that connects to the [SPIRE Agent](https://github.com/spiffe/spire) through the Workload API 
+and receives the SVIDs over a gRPC stream. Each new SVID update is stored in `/tmp/certs` and then a renew signal `SIGHUP` is sent to Envoy process
 to reload the certificates. 
 
-Envoy Proxy on the Frontend handles the requests from the Tomcat, establishes a _mTLS_ connection with the Envoy Proxy on the
-Backend, using the SVIDs to authenticate itself and validate the peer's identity. 
-Envoy Proxy on the Backend handles request from the Frontend and routes them to the Tomcat on its container. 
+Envoy Proxy on the Frontend handles the requests from Tomcat, establishes an mTLS connection with the Envoy Proxy on 
+the Backend using the SVIDs to authenticate itself and validates the peer's identity. 
+Envoy Proxy on the Backend handles the requests from the Frontend and routes them to the Tomcat on its container. 
+
+The SPIRE version is 0.6.0. 
 
 #### Registration Entries
 
@@ -47,21 +49,21 @@ Envoy Proxy on the Backend handles request from the Frontend and routes them to 
 ```
 $ make build
 
-Successfully built 
+Successfully built
 ```
 
-Run the containers: 
+Run the containers:
 
 ```
 $ make run
 
 docker-compose up -d
 Creating network "spiffeenvoydemo_default" with the default driver
-Creating spiffeenvoydemo_spire-server_1 ... 
+Creating spiffeenvoydemo_spire-server_1 ...
 Creating spiffeenvoydemo_spire-server_1 ... done
-Creating spiffeenvoydemo_backend_1 ... 
+Creating spiffeenvoydemo_backend_1 ...
 Creating spiffeenvoydemo_backend_1 ... done
-Creating spiffeenvoydemo_frontend_1 ... 
+Creating spiffeenvoydemo_frontend_1 ...
 Creating spiffeenvoydemo_frontend_1 ... done
 ```
 
@@ -79,24 +81,24 @@ INFO[0000] Starting HTTP server                          subsystem_name=endpoint
 
 ##### 5. Create the workloads entries
 
-On a console run: 
+On a console run:
 
 ```
 $ docker-compose exec spire-server ./create-entries.sh
 
 + ./spire-server entry create -parentID spiffe://example.org/host1 -spiffeID spiffe://example.org/back-end -selector unix:uid:1000 -ttl 120
-Entry ID:	aed86831-38ec-40f9-bbe5-7bf88f84f788
-SPIFFE ID:	spiffe://example.org/back-end
-Parent ID:	spiffe://example.org/host1
-TTL:		120
-Selector:	unix:uid:1000
+Entry ID: aed86831-38ec-40f9-bbe5-7bf88f84f788
+SPIFFE ID: spiffe://example.org/back-end
+Parent ID: spiffe://example.org/host1
+TTL: 120
+Selector: unix:uid:1000
 
 + ./spire-server entry create -parentID spiffe://example.org/host2 -spiffeID spiffe://example.org/front-end -selector unix:uid:1000 -ttl 120
-Entry ID:	3c1ffb41-cb2f-4393-9eb5-52b17e9cc28e
-SPIFFE ID:	spiffe://example.org/front-end
-Parent ID:	spiffe://example.org/host2
-TTL:		120
-Selector:	unix:uid:1000
+Entry ID: 3c1ffb41-cb2f-4393-9eb5-52b17e9cc28e
+SPIFFE ID: spiffe://example.org/front-end
+Parent ID: spiffe://example.org/host2
+TTL: 120
+Selector: unix:uid:1000
 ```
 
 ##### 6. Generate Tokens
@@ -116,7 +118,7 @@ Copy the Token, then connect to Backend container:
 $ docker-compose exec backend bash
 ```
 
-Inside the container: 
+Inside the container:
 
 ```
 # cd /opt/spire
@@ -159,7 +161,7 @@ Replace `{token}` by the generated token.
 
 ##### 7. Start the Tomcats
 
-###### 7.1 Run the Back-end 
+###### 7.1 Run the Back-end
 
 On a console run:
 
@@ -169,7 +171,7 @@ $ docker-compose exec backend /opt/back-end/start-tomcat.sh
 INFO [main] org.apache.catalina.startup.Catalina.start Server startup 
 ```
 
-###### 7.2 Run the Front-end 
+###### 7.2 Run the Front-end
 
 On a console run:
 
@@ -183,8 +185,24 @@ INFO [main] org.apache.catalina.startup.Catalina.start Server startup
 
 Open a browser an go to [http://localhost:9000/tasks](http://localhost:9000/tasks)
 
-The page should be displayed without errors. 
+The page should be displayed without errors.
 
+##### 9. Clean the environment 
+
+Stop the docker containers:
+
+```
+$ make clean
+
+docker-compose down
+Stopping spiffeenvoysidecar_frontend_1     ... done
+Stopping spiffeenvoysidecar_backend_1      ... done
+Stopping spiffeenvoysidecar_spire-server_1 ... done
+Removing spiffeenvoysidecar_frontend_1     ... done
+Removing spiffeenvoysidecar_backend_1      ... done
+Removing spiffeenvoysidecar_spire-server_1 ... done
+Removing network spiffeenvoysidecar_default
+```
 
 ### References
 
