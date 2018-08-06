@@ -1,0 +1,21 @@
+version: '3'
+services:
+  spire-server:
+    build: ./spire-server
+    hostname: spire-server
+    tty: true
+  backend:
+    build: ./back-end
+    hostname: back-end
+    tty: true
+    links:
+      - spire-server
+  frontend:
+    build: ./front-end
+    tty: true
+    links:
+      - spire-server
+      - backend
+    ports:
+      - 9000:9000
+
