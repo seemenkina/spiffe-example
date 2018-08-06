@@ -1,4 +1,4 @@
-# SPIFFE based TrustStore and Tomcat
+# SPIFFE based KeyStore/TrustStore and Tomcat
 
 This demo show an example using a SPIFFE based KeyStore implemented in the [JAVA-SPIFFE library](https://github.com/spiffe/java-spiffe)
 to authenticate Tomcat's workloads.
@@ -215,7 +215,7 @@ Now add a workload entry with a SPIFFE ID `spiffe://example.org/front-end2`:
 $ docker-compose exec spire-server ./spire-server entry create -parentID spiffe://example.org/host2 -spiffeID spiffe://example.org/front-end2 -selector unix:uid:1001 -ttl 120
 ```
 
-Wait until a new SVID is received: 
+Wait until a new SVID is received, check on the Backend console:  
 
 ```
 INFO [grpc-default-executor-2] spiffe.api.svid.X509SVIDFetcher$1.onNext New SVID received
