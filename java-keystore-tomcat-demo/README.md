@@ -1,6 +1,6 @@
 # SPIFFE based KeyStore/TrustStore and Tomcat
 
-This demo show an example using a SPIFFE based KeyStore implemented in the [JAVA-SPIFFE library](https://github.com/spiffe/java-spiffe)
+This demo shows an example using a SPIFFE based KeyStore implemented in the [JAVA-SPIFFE library](https://github.com/spiffe/java-spiffe)
 to authenticate Tomcat's workloads.
 
 The SPIFFE KeyStore interacts with the Workload API to fetch asynchronously the SVIDs and handle the certificates in memory. Certificates
