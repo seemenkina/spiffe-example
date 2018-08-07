@@ -32,6 +32,10 @@ Demonstrates the use of the SPIFFE Workload API to automatically get X.509 certi
 
 Demonstrates the use of the SPIFFE Workload API to dynamically update the X509 certificates of a custom KeyStore in a Java Security Provider. Connections are established using mTLS validating SPIFFE IDs
 
+**[java-keystore-tomcat](java-keystore-tomcat-demo) - Tomcat using a SPIFFE based KeyStore**
+
+Demonstrates two Tomcats using a SPIFFE based KeyStore and TrustStore that handles SVID certificates that gets from the WorkloadAPI. Connections are established using mTLS validating SPIFFE IDs.
+
 ## Infrastructure
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
