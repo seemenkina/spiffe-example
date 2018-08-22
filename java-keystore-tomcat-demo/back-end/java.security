@@ -6,5 +6,5 @@ security.provider.10=spiffe.provider.SpiffeProvider
 ssl.KeyManagerFactory.algorithm=Spiffe
 ssl.TrustManagerFactory.algorithm=Spiffe
 
-# The spiffeID that will be trusted
-ssl.spiffe.accept=spiffe://example.org/front-end
+# The list of spiffeIDs that will be authorized, separated by comma
+ssl.spiffe.accept=spiffe://example.org/front-end1, spiffe://example.org/front-end2

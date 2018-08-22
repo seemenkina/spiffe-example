@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends curl tar gzip default-jre nano
+  && apt-get install -y --no-install-recommends curl tar gzip default-jre vim
 
 # Install Spire Agent
 ARG SPIRE_VERSION=0.6.0
