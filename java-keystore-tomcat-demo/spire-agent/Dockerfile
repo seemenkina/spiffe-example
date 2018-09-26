@@ -12,7 +12,7 @@ RUN curl --silent --location $SPIRE_RELEASE | tar -xzf -
 RUN mv spire-${SPIRE_VERSION} ${SPIRE_DIR}
 
 # Install Tomcat
-ARG TOMCAT_VERSION=8.5.32
+ARG TOMCAT_VERSION=8.5.34
 ARG TOMCAT_RELEASE="http://apache.dattatec.com/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz"
 ARG TOMCAT_DIR=/opt/tomcat
 RUN curl --silent --location ${TOMCAT_RELEASE} | tar -xzf -
