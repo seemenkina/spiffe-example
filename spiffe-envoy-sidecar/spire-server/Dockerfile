@@ -1,19 +1,16 @@
-FROM ubuntu:xenial
+FROM centos:7
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates curl tar gzip
-
-# Install Spire Server
-ARG SPIRE_VERSION=0.6.0
+ARG SPIRE_VERSION=0.6.2
 ARG SPIRE_RELEASE=https://github.com/spiffe/spire/releases/download/${SPIRE_VERSION}/spire-${SPIRE_VERSION}-linux-x86_64-glibc.tar.gz
 ARG SPIRE_DIR=/opt/spire
-ARG SPIFFE_HELPER_DIR=/opt/spiffe-helper
 
 RUN curl --silent --location $SPIRE_RELEASE | tar -xzf -
 RUN mv spire-${SPIRE_VERSION} ${SPIRE_DIR}
 
-# Configure Spire
 WORKDIR ${SPIRE_DIR}
-COPY server.conf conf/server/server.conf
-COPY create-entries.sh .
+COPY conf/agent.conf conf/agent/agent.conf
+COPY conf/server.conf conf/server/server.conf
 
+EXPOSE 8080
+EXPOSE 8081
+ENTRYPOINT /opt/spire/spire-server run
