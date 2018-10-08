@@ -140,7 +140,7 @@ $ docker-compose exec spire-server ./spire-server token generate -spiffeID spiff
 Token: 81d70337-b255-446e-bb70-5eae5655a876
 ```
 
-Copy the Token, then connect to Backend container:
+Copy the Token, then connect to Frontend container:
 
 ```
 $ docker-compose exec frontend bash
