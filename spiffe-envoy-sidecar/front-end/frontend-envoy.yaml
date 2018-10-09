@@ -26,7 +26,7 @@ static_resources:
             config: {}
   clusters:
   - name: backend_service
-    connect_timeout: 0.25s
+    connect_timeout: 10.0s
     type: strict_dns
     lb_policy: round_robin
     hosts:
@@ -40,13 +40,14 @@ static_resources:
             filename: /tmp/certs/svid.pem
           private_key:
             filename: /tmp/certs/svid_key.pem
+        validation_context:
           trusted_ca:
             filename: /tmp/certs/svid_bundle.pem
+          verify_subject_alt_name:
+          - spiffe://example.org/back-end
         tls_params:
           ecdh_curves:
           - X25519:P-256:P-521:P-384
-      verify_subject_alt_name:
-      - spiffe://example.org/back-end
 admin:
   access_log_path: "/dev/null"
   address:
