@@ -31,4 +31,10 @@ echo "Tomcat Frontend is running"
 sleep 1
 
 echo "Opening: http://localhost:9000/tasks"
-xdg-open http://localhost:9000/tasks
+
+case $(uname) in
+    Darwin) open http://localhost:9000/tasks
+            ;;
+    Linux)    xdg-open http://localhost:9000/tasks
+            ;;
+esac
