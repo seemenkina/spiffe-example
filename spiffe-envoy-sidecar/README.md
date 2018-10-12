@@ -35,12 +35,16 @@ Envoy Proxy on the Backend handles the requests from the Frontend and routes the
 
 ### Run the demo
 
+This demo can be run manually executing step by step the commands to start the Spire Server, Agents and Tomcats, or it 
+can be run automatically with a single command: `make demo`. In the following sections it's described how to run the demo
+step by step. 
+
 ##### Prerequisites
 
 - Linux or macOS
 - [Make](https://www.gnu.org/software/make)
 - [Docker](https://docs.docker.com/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21+ is required to run `make demo`)
 
 ##### 1. Clone this repo
 

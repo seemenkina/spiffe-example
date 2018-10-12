@@ -29,6 +29,9 @@ COPY spiffe-helper/* ${SPIFFE_HELPER_DIR}/
 RUN curl --silent --location ${SPIFFE_HELPER_RELEASE} | tar -xzf -
 RUN mv sidecar ${SPIFFE_HELPER_DIR}
 
+RUN mkdir ${SPIFFE_HELPER_DIR}/logs
+RUN chmod 777 ${SPIFFE_HELPER_DIR}/logs
+
 # Configure Spire
 WORKDIR ${SPIRE_DIR}
 COPY agent.conf conf/agent/agent.conf
