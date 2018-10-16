@@ -15,7 +15,5 @@ RUN useradd backend -u 1000
 #Copy Envoy configuration
 COPY backend-envoy.yaml /opt/spiffe-helper/envoy.yaml
 
-WORKDIR /opt/spiffe-helper
-
 # Run the Sidecar as backend user
-CMD su -c "./sidecar" backend
+CMD su -c "/opt/spiffe-helper/sidecar -config /opt/spiffe-helper/helper.conf" backend

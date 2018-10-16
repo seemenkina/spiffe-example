@@ -116,17 +116,10 @@ $ docker-compose exec spire-server ./spire-server token generate -spiffeID spiff
 Token: b0cab4ab-ddcd-4403-862c-325fe599f661
 ```
 
-Copy the Token, then connect to Backend container:
+Copy the Token and run:
 
 ```
-$ docker-compose exec backend bash
-```
-
-Inside the container:
-
-```
-# cd /opt/spire
-# ./spire-agent run -joinToken {token}
+$ docker-compose exec backend ./spire-agent run -joinToken {token} 
 
 DEBU[0000] Requesting SVID for spiffe://example.org/back-end  subsystem_name=manager
 DEBU[0000] Requesting SVID for spiffe://example.org/host1  subsystem_name=manager
@@ -144,17 +137,10 @@ $ docker-compose exec spire-server ./spire-server token generate -spiffeID spiff
 Token: 81d70337-b255-446e-bb70-5eae5655a876
 ```
 
-Copy the Token, then connect to Frontend container:
+Copy the Token and run :
 
 ```
-$ docker-compose exec frontend bash
-```
-
-Inside the container: 
-
-```
-# cd /opt/spire
-# ./spire-agent run -joinToken {token}
+$ docker-compose exec frontend ./spire-agent run -joinToken {token}
 
 DEBU[0000] Requesting SVID for spiffe://example.org/back-end  subsystem_name=manager
 DEBU[0000] Requesting SVID for spiffe://example.org/host2  subsystem_name=manager
