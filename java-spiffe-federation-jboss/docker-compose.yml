@@ -1,0 +1,37 @@
+version: '3'
+services:
+  spire-server-1:
+    build:
+      context: ./spire-server
+      args:
+        - CONFIG_FILE=server1.conf
+    hostname: spire-server-1
+    container_name: spire-server-1
+    tty: true
+  spire-server-2:
+    build:
+      context: ./spire-server
+      args:
+        - CONFIG_FILE=server2.conf
+    hostname: spire-server-2
+    container_name: spire-server-2
+    tty: true
+  db:
+    build: ./database
+    hostname: db
+    tty: true
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  backend:
+    build: ./back-end
+    hostname: back-end
+    tty: true
+  frontend:
+    build: ./front-end
+    tty: true
+    depends_on:
+      - spire-server-2
+    ports:
+    - 9000:9000
+
