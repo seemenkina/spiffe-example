@@ -389,11 +389,20 @@ that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE
 
 ### Backend
 
-In the Backend there is a NGINX Proxy that accepts TCP connections using SSL: 
+In the Backend there is a NGINX Proxy that accepts TCP connections using SSL. The config file looks as follows:
 
 ```
+daemon off;
+
 # Unix user that has an entry in the registry
 user backend;
+
+pid nginx.pid;
+worker_processes 1;
+error_log /dev/stdout info;
+events {
+  worker_connections 1024;
+}
 
 stream {
   server {
