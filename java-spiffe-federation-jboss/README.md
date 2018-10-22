@@ -42,7 +42,7 @@ Health Check: OK
 Open in a browser: http://localhost:9000/tasks
 ```
 
-If the output is Success, go to the [link](http://localhost:9000/tasks) to open the simple web-app. 
+If the output is Success, go to [http://localhost:9000/tasks](http://localhost:9000/tasks) to open the simple web-app. 
 
 It the page displays without errors, the demo is working. 
 
@@ -355,7 +355,7 @@ $ dc exec frontend /opt/front-end/start-jboss.sh
 17:30:35,111 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Full 14.0.1.Final (WildFly Core 6.0.2.Final) started in 8934ms - Started 522 of 707 services (326 services are lazy, passive or on-demand)
 ```
 
-Open in browser: <a href="http://localhost:9000/tasks" target="_blank">Tasks app</a>
+Try open in browser [http://localhost:9000/tasks](http://localhost:9000/tasks)
 
 If the page displays without errors, the Demo is running correctly.
 
