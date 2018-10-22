@@ -1,14 +1,13 @@
 # Federation and TCP support demo
 
 This example shows a Federation scenario with two trust-domains, one having a JBOSS Wildfly Server running a web-app 
-that consumes data from a PostgreSQL database proxied by an NGNIX that are running on the other trust-domain. 
+that consumes data from a PostgreSQL database proxied by an NGNIX running on the other trust-domain. 
 
 The NGINX Proxy supports Spiffe based TCP connections. 
 
 The JBOSS uses the [java-spiffe](https://github.com/spiffe/java-spiffe) library that offers an interface to fetch the 
 SVIDs certificates from the  SPIRE Workload API and provides both a Java Security Provider (KeyStore and TrustStore) and
-a SocketFactory implementation that leverages that Provider for providing the SVIDs and validating peers' SVIDs  
-during the SSL handshake.  
+a SocketFactory implementation that leverages that Provider for providing the SVIDs and validating peers' SVIDs during the SSL handshake.  
 
 
 ### Scenario: 
@@ -19,7 +18,7 @@ The JBOSS Server workload will get the SPIFFE id `spiffe://example.org/front-end
 
 The NGINX Proxy workload will get the SPIFFE id `spiffe://test.com/back-end` and will be referred to as the _Backend_.
 
-NGINX accepts SSL connections and connects to the PostgresSQL DB that don't use SSL. 
+NGINX accepts SSL connections and connects to the PostgresSQL database without SSL.
 
 ## Running the demo
 
@@ -48,7 +47,7 @@ If the output is Success, go to the [link](http://localhost:9000/tasks) to open 
 It the page displays without errors, the demo is working. 
 
 
-We encourage you to run the demo step by step following the next sequence, that will be helpful to understand 
+I encourage you to run the demo step by step following the next sequence. It will be helpful to understand 
 what's going on and to troubleshoot in case there is an issue.  
 
 ### Demo step by step
@@ -393,6 +392,9 @@ that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE
 In the Backend there is a NGINX Proxy that accepts TCP connections using SSL: 
 
 ```
+# Unix user that has an entry in the registry
+user backend;
+
 stream {
   server {
     listen       8443 ssl;
