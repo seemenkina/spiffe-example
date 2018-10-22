@@ -372,7 +372,7 @@ $ make clean
 In the Frontend there is a JBOSS Widlfly Server running a simple Spring Boot webapp that consumes data from a Database and
 generates an HTML with that data. 
 
-The database connection URL it's defined through the following property: 
+The database connection URL is defined through the following property: 
 
 ```
 spring.datasource.url=jdbc:postgresql://backend:8443/tasks_service?socketFactory=spiffe.provider.SpiffeSocketFactory
@@ -382,9 +382,9 @@ The URL has a parameter `socketFactory` that configures the SocketFactory implem
 The `SpiffeSocketFactory` from the [java-spiffe](https://github.com/spiffe/java-spiffe) will be used to create the Socket
 to connect to the NGINX proxy. 
 
-The reason for not using the parameter `sslfactory` instead of `socketFactory` is that the connection to the PostgreSQL is 
-not on SSL, but the connection between the JBOSS Server and the NGINX is on SSL, and then the NGINX redirects the traffic to 
-the DB without using SSL. Thus for establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
+The reason for using the parameter `socketFactory` and not the paramter `sslfactory` is that the connection to the PostgreSQL is 
+not on SSL, but the connection between the JBOSS Server and the NGINX is, and then the NGINX redirects the traffic to 
+the DB without using SSL. For establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
 that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE Workload API. 
 
 ### Backend
