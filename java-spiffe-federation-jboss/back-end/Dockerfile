@@ -1,6 +1,6 @@
 FROM spire-base
 
-RUN apt-get install -y --no-install-recommends vim
+RUN apt-get install -y --no-install-recommends
 
 # Install NGINX
 ARG NGINX_URL="https://storage.googleapis.com/spiffe-example/java-spiffe-federation-demo/nginx-tcp.tar.gz"

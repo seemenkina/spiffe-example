@@ -1,13 +1,13 @@
 # Federation and TCP support demo
 
 This example shows a Federation scenario with two trust-domains, one having a JBOSS Wildfly Server running a web-app 
-that consumes data from a PostgreSQL database proxied by an NGNIX running on the other trust-domain. 
+that consumes data from a PostgreSQL database proxied by a NGNIX running on the other trust-domain. 
 
 The NGINX Proxy supports Spiffe based TCP connections. 
 
 The JBOSS uses the [java-spiffe](https://github.com/spiffe/java-spiffe) library that offers an interface to fetch the 
-SVIDs certificates from the  SPIRE Workload API and provides both a Java Security Provider (KeyStore and TrustStore) and
-a SocketFactory implementation that leverages that Provider for providing the SVIDs and validating peers' SVIDs during the SSL handshake.  
+SVIDs certificates and federated bundles from the  SPIRE Workload API and provides both a Java Security Provider (KeyStore and TrustStore) and
+a SocketFactory implementation that leverages that Provider for supplying the SVIDs and validating peers' SVIDs during the SSL handshake.  
 
 
 ### Scenario: 
@@ -29,7 +29,7 @@ NGINX accepts SSL connections and connects to the PostgresSQL database without S
 - [Docker](https://docs.docker.com/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Running automatically
+### Running demo automatically
 
 To run all the steps with a command: 
 
@@ -42,15 +42,16 @@ Health Check: OK
 Open in a browser: http://localhost:9000/tasks
 ```
 
-If the output is Success, go to [http://localhost:9000/tasks](http://localhost:9000/tasks) to open the simple web-app. 
+If the output is _OK_, go to [http://localhost:9000/tasks](http://localhost:9000/tasks) to open the simple web-app. 
 
-It the page displays without errors, the demo is working. 
+If the page displays without errors, the demo is working. 
 
-
-I encourage you to run the demo step by step following the next sequence. It will be helpful to understand 
+I encourage you to run the demo step by step following the next sequence. It will help you understand 
 what's going on and to troubleshoot in case there is an issue.  
 
 ### Demo step by step
+
+Note: the output from the commands that show the certificates bundles and tokens are by way of example, you must use the outputs from your commands' execution.
 
 #### Run the Docker containers: 
 
@@ -252,7 +253,7 @@ Selector:	unix:uid:1000
 FederatesWith:	spiffe://test.com
 ```
 
-In SPIRE Server 1 registry an entry was added for the spiffe id `spiffe://example.org/front-end` that federates with the Trust Domain `spiffe://test.com`
+An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://example.org/front-end` that federates with the Trust Domain `spiffe://test.com`
 
 
 Register SPIFFE id `spiffe://test.com/front-end`:
@@ -268,11 +269,9 @@ Selector:	unix:uid:1000
 FederatesWith:	spiffe://example.org
 ```
 
-In SPIRE Server 2 registry an entry was added for the spiffe id `spiffe://test.com/back-end` that federates with the Trust Domain `spiffe://example.org`
-
+An Entry was created in SPIRE Server 2 Registry for the spiffe id `spiffe://test.com/back-end` that federates with the Trust Domain `spiffe://example.org`
 
 #### Register the SPIRE Agents
-
 
 Generate Token for SPIRE Agent 1: 
 
@@ -357,7 +356,7 @@ $ dc exec frontend /opt/front-end/start-jboss.sh
 
 Try open in browser [http://localhost:9000/tasks](http://localhost:9000/tasks)
 
-If the page displays without errors, the Demo is running correctly.
+If the page displays without errors, the demo is running correctly.
 
 #### Clean the environment: 
 
@@ -378,14 +377,16 @@ The database connection URL is defined through the following property:
 spring.datasource.url=jdbc:postgresql://backend:8443/tasks_service?socketFactory=spiffe.provider.SpiffeSocketFactory
 ``` 
 
+`backend:8443` is where the NGINX is listening for SSL connections. 
 The URL has a parameter `socketFactory` that configures the SocketFactory implementation to be used to create the Socket. 
 The `SpiffeSocketFactory` from the [java-spiffe](https://github.com/spiffe/java-spiffe) will be used to create the Socket
 to connect to the NGINX proxy. 
 
-The reason for using the parameter `socketFactory` and not the paramter `sslfactory` is that the connection to the PostgreSQL is 
-not on SSL, but the connection between the JBOSS Server and the NGINX is, and then the NGINX redirects the traffic to 
+The reason for using the parameter `socketFactory` and not the parameter `sslfactory` is that the connection to the PostgreSQL is 
+not on SSL, the connection between the JBOSS Server and the NGINX is on SSL, and then the NGINX redirects the traffic to 
 the DB without using SSL. For establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
-that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE Workload API. 
+that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE Workload API. During that handshake both peers validate 
+each other using the peers SVIDs and the federated bundles they got from the Workload API. 
 
 ### Backend
 

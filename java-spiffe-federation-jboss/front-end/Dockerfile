@@ -1,6 +1,6 @@
 FROM spire-base
 
-RUN apt-get install -y --no-install-recommends default-jre vim
+RUN apt-get install -y --no-install-recommends default-jre
 
 # Install JBOSS
 ARG JBOSS_URL="https://storage.googleapis.com/spiffe-example/java-spiffe-federation-demo/wildfly-14.0.1.Final.tar.gz"
