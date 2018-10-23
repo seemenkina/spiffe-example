@@ -51,7 +51,7 @@ what's going on and to troubleshoot in case there is an issue.
 
 ### Demo step by step
 
-Note: the output from the commands that show the certificates bundles and tokens are by way of example, you must use the outputs from your commands' execution.
+Note: the outputs of the commands that show the certificates bundles and tokens are by way of example, you must use the outputs from your commands' execution.
 
 #### Run the Docker containers: 
 
