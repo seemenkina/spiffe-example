@@ -59,9 +59,9 @@ Note: the outputs of the commands that show the certificates bundles and tokens 
 $ make run
 
 Creating network "java-spiffe-federation-jboss_default" with the default driver
-Creating spire-server-2                    ... done
+Creating spire-server-backend                    ... done
 Creating java-spiffe-federation-jboss_db_1 ... done
-Creating spire-server-1                    ... done
+Creating spire-server-frontend                    ... done
 Creating java-spiffe-federation-jboss_backend_1 ... done
 Creating java-spiffe-federation-jboss_frontend_1 ... done
 ```
@@ -74,15 +74,15 @@ $ docker-compose ps
 java-spiffe-federation-jboss_backend_1    /bin/bash                       Up                            
 java-spiffe-federation-jboss_db_1         docker-entrypoint.sh postgres   Up      5432/tcp              
 java-spiffe-federation-jboss_frontend_1   /bin/bash                       Up      0.0.0.0:9000->9000/tcp
-spire-server-1                            /bin/bash                       Up                            
-spire-server-2                            /bin/bash                       Up  
+spire-server-frontend                            /bin/bash                       Up                            
+spire-server-backend                            /bin/bash                       Up  
 ```
 
 #### Run the SPIRE Servers: 
 
 ##### SPIRE Server 1:
 ```
-$ docker-compose exec spire-server-1 ./spire-server run
+$ docker-compose exec spire-server-frontend ./spire-server run
 
 DEBU[0000] Setting umask to 077                         
 INFO[0000] data directory: "/opt/spire/.data"           
@@ -106,7 +106,7 @@ INFO[0000] Starting UDS server /tmp/spire-registration.sock  subsystem_name=endp
 
 ##### SPIRE Server 2: 
 ```
-$ docker-compose exec spire-server-2 ./spire-server run
+$ docker-compose exec spire-server-backend ./spire-server run
 
 DEBU[0000] Setting umask to 077                         
 INFO[0000] data directory: "/opt/spire/.data"           
@@ -133,7 +133,7 @@ INFO[0000] Starting UDS server /tmp/spire-registration.sock  subsystem_name=endp
 Show SPIRE Server 1 bundle: 
 
 ```
-$ dc exec spire-server-1 ./spire-server bundle show
+$ dc exec spire-server-frontend ./spire-server bundle show
 
 -----BEGIN CERTIFICATE-----
 MIIBzDCCAVOgAwIBAgIJAJM4DhRH0vmuMAoGCCqGSM49BAMEMB4xCzAJBgNVBAYT
@@ -178,7 +178,7 @@ The bundle shown corresponds to Trust Domain `spiffe://example.org`
 Register the bundle in SPIRE Server 2: 
 
 ```
-$ dc exec spire-server-2 ./spire-server bundle set -id spiffe://example.org
+$ dc exec spire-server-backend ./spire-server bundle set -id spiffe://example.org
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl-D.
@@ -187,7 +187,7 @@ Copy and paste the bundle you got in the output from the previous step, and then
 Show SPIRE Server 2 bundle: 
 
 ```
-$ dc exec spire-server-2 ./spire-server bundle show
+$ dc exec spire-server-backend ./spire-server bundle show
 
 -----BEGIN CERTIFICATE-----
 MIIBzDCCAVOgAwIBAgIJAJM4DhRH0vmuMAoGCCqGSM49BAMEMB4xCzAJBgNVBAYT
@@ -232,7 +232,7 @@ The bundle shown corresponds to Trust Domain `spiffe://test.com`
 Register the bundle in SPIRE Server 1: 
 
 ```
-$ dc exec spire-server-1 ./spire-server bundle set -id spiffe://test.com
+$ dc exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl-D.
@@ -243,7 +243,7 @@ Copy and paste the bundle you got in the output from the previous step, and then
 Register SPIFFE id `spiffe://example.org/front-end`:
 
 ```
-$ dc exec spire-server-1 ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
+$ dc exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
 
 Entry ID:	2a162e5f-7ee7-4ee2-8c89-0d290b0d9dce
 SPIFFE ID:	spiffe://example.org/front-end
@@ -259,7 +259,7 @@ An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://exam
 Register SPIFFE id `spiffe://test.com/front-end`:
 
 ```
-$ dc exec spire-server-2 ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
+$ dc exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
 
 Entry ID:	ced66654-fe63-46e5-895b-3896b686ea6a
 SPIFFE ID:	spiffe://test.com/back-end
@@ -276,7 +276,7 @@ An Entry was created in SPIRE Server 2 Registry for the spiffe id `spiffe://test
 Generate Token for SPIRE Agent 1: 
 
 ```
-$ docker-compose exec spire-server-1 ./spire-server token generate -spiffeID spiffe://example.org/host
+$ docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://example.org/host
 
 Token: ac37c7b9-3eee-435a-adac-fb6822ad325c
 ```
@@ -303,7 +303,7 @@ SPIRE Agent 1 is running.
 Generate Token for SPIRE Agent 2: 
 
 ```
-$ docker-compose exec spire-server-2 ./spire-server token generate -spiffeID spiffe://test.com/host
+$ docker-compose exec spire-server-backend ./spire-server token generate -spiffeID spiffe://test.com/host
 
 Token: ac37c7b9-3eee-435a-adac-fb6822ad325c
 ```

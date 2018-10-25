@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates curl tar gzip
+  && apt-get install -y --no-install-recommends ca-certificates curl tar gzip vim
 
 # Install Spire Server
 ARG SPIRE_RELEASE="https://storage.googleapis.com/spiffe-example/java-spiffe-federation-demo/spire.tar.gz"
