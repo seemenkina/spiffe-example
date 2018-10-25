@@ -2,10 +2,10 @@
 
 
 docker-compose exec -d spire-server-frontend ./spire-server run
-echo "Spire Server-1 is running"
+echo "Spire Server-Frontend is running"
 
 docker-compose exec -d spire-server-backend ./spire-server run
-echo "Spire Server-2 is running"
+echo "Spire Server-Backend is running"
 
 docker-compose exec spire-server-frontend ./spire-server bundle show > bundle1.pem
 docker-compose exec spire-server-backend ./spire-server bundle show > bundle2.pem
