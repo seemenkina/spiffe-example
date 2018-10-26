@@ -158,6 +158,29 @@
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
                 </drivers>
+
+                <datasource jndi-name="java:jboss/datasources/TasksDS" pool-name="TasksDS" enabled="true" use-java-context="true" >
+                    <connection-property name="url">
+                        jdbc:postgresql://backend:8443/tasks_service?socketFactory=spiffe.provider.SpiffeSocketFactory
+                    </connection-property>
+                    <driver>postgresql</driver>
+                    <pool>
+                        <min-pool-size>1</min-pool-size>
+                    </pool>
+                    <security>
+                        <user-name>postgres</user-name>
+                        <password>postgres</password>
+                    </security>
+                    <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
+                    </validation>
+                </datasource>
+                <drivers>
+                    <driver name="postgresql" module="org.postgresql">
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                        <datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
+                    </driver>
+                </drivers>
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">

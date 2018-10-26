@@ -3,7 +3,7 @@
 This example shows a Federation scenario with two trust-domains, one having a JBOSS Wildfly Server running a web-app 
 that consumes data from a PostgreSQL database proxied by a NGNIX running on the other trust-domain. 
 
-The NGINX Proxy supports Spiffe based TCP connections. 
+The NGINX Proxy supports SPIFFE based TCP connections. 
 
 The JBOSS uses the [java-spiffe](https://github.com/spiffe/java-spiffe) library that offers an interface to fetch the 
 SVIDs certificates and federated bundles from the  SPIRE Workload API and provides both a Java Security Provider (KeyStore and TrustStore) and
@@ -14,9 +14,9 @@ a SocketFactory implementation that leverages that Provider for supplying the SV
 
 ![diagram-simple](Federation%20Demo%20diagram%20-%20TCP.png)
 
-The JBOSS Server workload will get the SPIFFE id `spiffe://example.org/front-end` and will be referred to as the _Frontend_.
+The JBOSS Server workload will get the SPIFFE ID `spiffe://example.org/front-end` and will be referred to as the _Frontend_.
 
-The NGINX Proxy workload will get the SPIFFE id `spiffe://test.com/back-end` and will be referred to as the _Backend_.
+The NGINX Proxy workload will get the SPIFFE ID `spiffe://test.com/back-end` and will be referred to as the _Backend_.
 
 NGINX accepts SSL connections and connects to the PostgresSQL database without SSL.
 
@@ -46,7 +46,7 @@ If the output is _OK_, go to [http://localhost:9000/tasks](http://localhost:9000
 
 If the page displays without errors, the demo is working. 
 
-I encourage you to run the demo step by step following the next sequence. It will help you understand 
+It's recommended to run the demo step by step following the next sequence. It will help you understand 
 what's going on and to troubleshoot in case there is an issue.  
 
 ### Demo step by step
@@ -181,7 +181,7 @@ Register the bundle in SPIRE Server 2:
 $ dc exec spire-server-backend ./spire-server bundle set -id spiffe://example.org
 ```
 
-Copy and paste the bundle you got in the output from the previous step, and then press Ctrl-D.
+Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
 
 
 Show SPIRE Server 2 bundle: 
@@ -235,12 +235,12 @@ Register the bundle in SPIRE Server 1:
 $ dc exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com
 ```
 
-Copy and paste the bundle you got in the output from the previous step, and then press Ctrl-D.
+Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
 
 
 #### Generate the entries in the SPIRE Server registries: 
 
-Register SPIFFE id `spiffe://example.org/front-end`:
+Register SPIFFE ID `spiffe://example.org/front-end`:
 
 ```
 $ dc exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
@@ -256,7 +256,7 @@ FederatesWith:	spiffe://test.com
 An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://example.org/front-end` that federates with the Trust Domain `spiffe://test.com`
 
 
-Register SPIFFE id `spiffe://test.com/front-end`:
+Register SPIFFE ID `spiffe://test.com/front-end`:
 
 ```
 $ dc exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
@@ -371,21 +371,36 @@ $ make clean
 In the Frontend there is a JBOSS Widlfly Server running a simple Spring Boot webapp that consumes data from a Database and
 generates an HTML with that data. 
 
-The database connection URL is defined through the following property: 
+The connection to the PostgreSQL database is configured through a DataSource defined in `/opt/jboss/standalone/configuration/standalone.xml`: 
 
 ```
-spring.datasource.url=jdbc:postgresql://backend:8443/tasks_service?socketFactory=spiffe.provider.SpiffeSocketFactory
+<datasource jndi-name="java:jboss/datasources/TasksDS" pool-name="TasksDS" enabled="true" use-java-context="true" >
+    <connection-property name="url">
+        jdbc:postgresql://backend:8443/tasks_service?socketFactory=spiffe.provider.SpiffeSocketFactory
+    </connection-property>
+    <driver>postgresql</driver>
+    <pool>
+        <min-pool-size>1</min-pool-size>
+    </pool>
+    <security>
+        <user-name>postgres</user-name>
+        <password>postgres</password>
+    </security>
+    <validation>
+        <check-valid-connection-sql>select 1</check-valid-connection-sql>
+    </validation>
+</datasource>
 ``` 
 
 `backend:8443` is where the NGINX is listening for SSL connections. 
 The URL has a parameter `socketFactory` that configures the SocketFactory implementation to be used to create the Socket. 
-The `SpiffeSocketFactory` from the [java-spiffe](https://github.com/spiffe/java-spiffe) will be used to create the Socket
+The `SPIFFESocketFactory` from the [java-spiffe](https://github.com/spiffe/java-spiffe) will be used to create the Socket
 to connect to the NGINX proxy. 
 
 The reason for using the parameter `socketFactory` and not the parameter `sslfactory` is that the connection to the PostgreSQL is 
 not on SSL, the connection between the JBOSS Server and the NGINX is on SSL, and then the NGINX redirects the traffic to 
 the DB without using SSL. For establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
-that leverages the Spiffe KeyStore that handles the SVIDs fetched from the SPIRE Workload API. During that handshake both peers validate 
+that leverages the SPIFFE KeyStore that handles the SVIDs fetched from the SPIRE Workload API. During that handshake both peers validate 
 each other using the peers SVIDs and the federated bundles they got from the Workload API. 
 
 ### Backend
@@ -428,7 +443,7 @@ stream {
 }
 ```
 
-It validates that the SPIFFE id in the Peer's SVID is `spiffe://example.org/front-end`.
+It validates that the SPIFFE ID in the Peer's SVID is `spiffe://example.org/front-end`.
 
 ## More information
 
