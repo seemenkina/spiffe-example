@@ -39,6 +39,7 @@ COPY agent.conf /opt/spire/conf/agent/agent.conf
 RUN mkdir /opt/front-end
 COPY database.properties /opt/front-end
 COPY start-jboss.sh /opt/front-end
+COPY frontend.security /opt/front-end
 
 #Create user for frontend workload
 RUN useradd frontend -u 1000

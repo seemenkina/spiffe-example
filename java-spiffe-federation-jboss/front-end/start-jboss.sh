@@ -3,6 +3,9 @@
 # Define PostgreSQL connection properties
 export JAVA_OPTS="$JAVA_OPTS -Dspring.config.location=/opt/front-end/database.properties"
 
+# Define Java Security Properties
+export JAVA_OPTS="$JAVA_OPTS -Djava.security.properties=/opt/front-end/frontend.security "
+
 # needed for JBOSS to work with Docker Compose
 export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true"
 

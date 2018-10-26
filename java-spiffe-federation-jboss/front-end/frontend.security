@@ -1,0 +1,3 @@
+# The list of SPIFFE IDs that will be authorized, separated by comma
+# If it's blank or not defined, any SPIFFE ID is authorized
+ssl.spiffe.accept=spiffe://test.com/back-end
