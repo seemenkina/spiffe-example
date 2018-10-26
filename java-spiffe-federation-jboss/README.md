@@ -18,7 +18,7 @@ The JBOSS Server workload will get the SPIFFE ID `spiffe://example.org/front-end
 
 The NGINX Proxy workload will get the SPIFFE ID `spiffe://test.com/back-end` and will be referred to as the _Backend_.
 
-NGINX accepts SSL connections and connects to the PostgresSQL database without SSL.
+NGINX accepts SSL connections and connects to the local PostgresSQL database without SSL.
 
 ## Running the demo
 
@@ -60,22 +60,20 @@ $ make run
 
 Creating network "java-spiffe-federation-jboss_default" with the default driver
 Creating spire-server-backend                    ... done
-Creating java-spiffe-federation-jboss_db_1 ... done
 Creating spire-server-frontend                    ... done
 Creating java-spiffe-federation-jboss_backend_1 ... done
 Creating java-spiffe-federation-jboss_frontend_1 ... done
 ```
 
-Check that the 5 docker containers are _Up_: 
+Check that the 4 docker containers are _Up_: 
 
 ```
 $ docker-compose ps
 
-java-spiffe-federation-jboss_backend_1    /bin/bash                       Up                            
-java-spiffe-federation-jboss_db_1         docker-entrypoint.sh postgres   Up      5432/tcp              
+java-spiffe-federation-jboss_backend_1    docker-entrypoint.sh postgres   Up      5432/tcp              
 java-spiffe-federation-jboss_frontend_1   /bin/bash                       Up      0.0.0.0:9000->9000/tcp
-spire-server-frontend                            /bin/bash                       Up                            
-spire-server-backend                            /bin/bash                       Up  
+spire-server-backend                      /bin/bash                       Up                            
+spire-server-frontend                     /bin/bash                       Up  
 ```
 
 #### Run the SPIRE Servers: 
@@ -133,7 +131,7 @@ INFO[0000] Starting UDS server /tmp/spire-registration.sock  subsystem_name=endp
 Show SPIRE Server 1 bundle: 
 
 ```
-$ dc exec spire-server-frontend ./spire-server bundle show
+$ docker-compose exec spire-server-frontend ./spire-server bundle show
 
 -----BEGIN CERTIFICATE-----
 MIIBzDCCAVOgAwIBAgIJAJM4DhRH0vmuMAoGCCqGSM49BAMEMB4xCzAJBgNVBAYT
@@ -178,7 +176,7 @@ The bundle shown corresponds to Trust Domain `spiffe://example.org`
 Register the bundle in SPIRE Server 2: 
 
 ```
-$ dc exec spire-server-backend ./spire-server bundle set -id spiffe://example.org
+$ docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://example.org
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
@@ -187,7 +185,7 @@ Copy and paste the bundle you got in the output from the previous step, and then
 Show SPIRE Server 2 bundle: 
 
 ```
-$ dc exec spire-server-backend ./spire-server bundle show
+$ docker-compose exec spire-server-backend ./spire-server bundle show
 
 -----BEGIN CERTIFICATE-----
 MIIBzDCCAVOgAwIBAgIJAJM4DhRH0vmuMAoGCCqGSM49BAMEMB4xCzAJBgNVBAYT
@@ -232,7 +230,7 @@ The bundle shown corresponds to Trust Domain `spiffe://test.com`
 Register the bundle in SPIRE Server 1: 
 
 ```
-$ dc exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com
+$ docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
@@ -243,7 +241,7 @@ Copy and paste the bundle you got in the output from the previous step, and then
 Register SPIFFE ID `spiffe://example.org/front-end`:
 
 ```
-$ dc exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
+$ docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
 
 Entry ID:	2a162e5f-7ee7-4ee2-8c89-0d290b0d9dce
 SPIFFE ID:	spiffe://example.org/front-end
@@ -259,7 +257,7 @@ An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://exam
 Register SPIFFE ID `spiffe://test.com/front-end`:
 
 ```
-$ dc exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
+$ docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
 
 Entry ID:	ced66654-fe63-46e5-895b-3896b686ea6a
 SPIFFE ID:	spiffe://test.com/back-end
@@ -328,7 +326,7 @@ INFO[0000] Starting workload API
 #### Run the NGINX Proxy: 
 
 ```
-$ dc exec backend /opt/nginx/nginx
+$ docker-compose exec backend /opt/nginx/nginx
 
 2018/10/18 17:29:38 [notice] 39#0: using the "epoll" event method
 2018/10/18 17:29:38 [notice] 39#0: nginx/1.13.9
@@ -345,7 +343,7 @@ $ dc exec backend /opt/nginx/nginx
 #### Run the JBOSS Wildfly Server: 
 
 ```
-$ dc exec frontend /opt/front-end/start-jboss.sh
+$ docker-compose exec frontend /opt/front-end/start-jboss.sh
 
 17:30:35,065 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 42) WFLYSRV0010: Deployed "ROOT.war" (runtime-name : "ROOT.war")
 17:30:35,109 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0212: Resuming server
@@ -399,7 +397,7 @@ to connect to the NGINX proxy.
 
 The reason for using the parameter `socketFactory` and not the parameter `sslfactory` is that the connection to the PostgreSQL is 
 not on SSL, the connection between the JBOSS Server and the NGINX is on SSL, and then the NGINX redirects the traffic to 
-the DB without using SSL. For establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
+the local Database without using SSL. For establishing the connection between the JBOSS and the NGINX is required a custom SocketFactory
 that leverages the SPIFFE KeyStore that handles the SVIDs fetched from the SPIRE Workload API. During that handshake both peers validate 
 each other using the peers SVIDs and the federated bundles they got from the Workload API. 
 
@@ -438,7 +436,7 @@ stream {
     ssl_spiffe_accept spiffe://example.org/front-end;
 
     # Redirect traffic to postgres database
-    proxy_pass            db:5432;
+    proxy_pass            localhost:5432;
   }
 }
 ```

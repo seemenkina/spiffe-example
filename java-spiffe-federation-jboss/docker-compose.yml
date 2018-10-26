@@ -16,17 +16,13 @@ services:
     hostname: spire-server-backend
     container_name: spire-server-backend
     tty: true
-  db:
-    build: ./database
-    hostname: db
-    tty: true
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
   backend:
     build: ./back-end
     hostname: back-end
     tty: true
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
   frontend:
     build: ./front-end
     tty: true
