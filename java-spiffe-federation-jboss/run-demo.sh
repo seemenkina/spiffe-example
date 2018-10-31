@@ -15,14 +15,14 @@ docker cp bundle1.pem spire-server-backend:/opt/spire
 rm bundle1.pem
 rm bundle2.pem
 
-docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com -path bundle2.pem
-docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://example.org -path bundle1.pem
+docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://second-domain.test -path bundle2.pem
+docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://first-domain.test -path bundle1.pem
 
-docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000 -ttl 60
-docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end  -federatesWith spiffe://example.org -selector unix:uid:1000 -ttl 60
+docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://first-domain.test/host -spiffeID spiffe://first-domain.test/front-end -federatesWith spiffe://second-domain.test -selector unix:uid:1000 -ttl 60
+docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://second-domain.test/host -spiffeID spiffe://second-domain.test/back-end  -federatesWith spiffe://first-domain.test -selector unix:uid:1000 -ttl 60
 
 
-OUTPUT1=$(docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://example.org/host 2>&1)
+OUTPUT1=$(docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://first-domain.test/host 2>&1)
 TOKEN1=$( echo ${OUTPUT1} | cut -c8-43)
 
 docker-compose exec -d frontend ./spire-agent run -joinToken $(echo $TOKEN1)
@@ -30,7 +30,7 @@ sleep 1
 echo "Spire Agent - Frontend is running"
 
 
-OUTPUT2=$(docker-compose exec spire-server-backend ./spire-server token generate -spiffeID spiffe://test.com/host 2>&1)
+OUTPUT2=$(docker-compose exec spire-server-backend ./spire-server token generate -spiffeID spiffe://second-domain.test/host 2>&1)
 TOKEN2=$( echo ${OUTPUT2} | cut -c8-43)
 
 docker-compose exec -d backend ./spire-agent run -joinToken $(echo $TOKEN2)

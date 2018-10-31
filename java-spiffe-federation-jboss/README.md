@@ -1,7 +1,12 @@
 # Federation and TCP support demo
 
-This example shows a Federation scenario with two trust-domains, one having a JBOSS Wildfly Server running a web-app 
-that consumes data from a PostgreSQL database proxied by a NGNIX running on the other trust-domain. 
+This example shows a Federation scenario with two trust-domains: `first-domain.test` and `second-domain-test`.  
+
+Under the trust domain `first-domain.test` there is a SPIRE server, a SPIRE agent, and a JBOSS server running a frontend application that
+consumes data from a PostgreSQL Database.
+
+Under the trust domain `second-domain.test` there are another SPIRE server and agent along with a NGNIX proxy that handles connections to 
+the PostgreSQL Database. 
 
 The NGINX Proxy supports SPIFFE based TCP connections. 
 
@@ -14,9 +19,9 @@ a SocketFactory implementation that leverages that Provider for supplying the SV
 
 ![diagram-simple](Federation%20Demo%20diagram%20-%20TCP.png)
 
-The JBOSS Server workload will get the SPIFFE ID `spiffe://example.org/front-end` and will be referred to as the _Frontend_.
+The JBOSS Server workload will get the SPIFFE ID `spiffe://first-domain.test/front-end` and will be referred to as the _Frontend_.
 
-The NGINX Proxy workload will get the SPIFFE ID `spiffe://test.com/back-end` and will be referred to as the _Backend_.
+The NGINX Proxy workload will get the SPIFFE ID `spiffe://second-domain.test/back-end` and will be referred to as the _Backend_.
 
 NGINX accepts SSL connections and connects to the local PostgresSQL database without SSL.
 
@@ -171,12 +176,12 @@ xDMsRI9LM8SOAbRX2KnCndbZBYA=
 -----END CERTIFICATE-----
 ```
 
-The bundle shown corresponds to Trust Domain `spiffe://example.org`
+The bundle shown corresponds to Trust Domain `spiffe://first-domain.test`
 
 Register the bundle in SPIRE Server 2: 
 
 ```
-$ docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://example.org
+$ docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://first-domain.test
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
@@ -225,12 +230,12 @@ hkjOPQQDAgNoADBlAjBXL2iFYDf59bvysJCJaYLzdl19QQWrAIjOmCcyCGWtVcU0
 -----END CERTIFICATE-----
 ```
 
-The bundle shown corresponds to Trust Domain `spiffe://test.com`
+The bundle shown corresponds to Trust Domain `spiffe://second-domain.test`
 
 Register the bundle in SPIRE Server 1: 
 
 ```
-$ docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://test.com
+$ docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://second-domain.test
 ```
 
 Copy and paste the bundle you got in the output from the previous step, and then press Ctrl+D.
@@ -238,43 +243,43 @@ Copy and paste the bundle you got in the output from the previous step, and then
 
 #### Generate the entries in the SPIRE Server registries: 
 
-Register SPIFFE ID `spiffe://example.org/front-end`:
+Register SPIFFE ID `spiffe://first-domain.test/front-end`:
 
 ```
-$ docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://example.org/host -spiffeID spiffe://example.org/front-end -federatesWith spiffe://test.com -selector unix:uid:1000
+$ docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://first-domain.test/host -spiffeID spiffe://first-domain.test/front-end -federatesWith spiffe://second-domain.test -selector unix:uid:1000
 
 Entry ID:	2a162e5f-7ee7-4ee2-8c89-0d290b0d9dce
-SPIFFE ID:	spiffe://example.org/front-end
-Parent ID:	spiffe://example.org/host
+SPIFFE ID:	spiffe://first-domain.test/front-end
+Parent ID:	spiffe://first-domain.test/host
 TTL:		3600
 Selector:	unix:uid:1000
-FederatesWith:	spiffe://test.com
+FederatesWith:	spiffe://second-domain.test
 ```
 
-An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://example.org/front-end` that federates with the Trust Domain `spiffe://test.com`
+An Entry was created in SPIRE Server 1 Registry for the spiffe id `spiffe://first-domain.test/front-end` that federates with the Trust Domain `spiffe://second-domain.test`
 
 
-Register SPIFFE ID `spiffe://test.com/front-end`:
+Register SPIFFE ID `spiffe://second-domain.test/front-end`:
 
 ```
-$ docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://test.com/host -spiffeID spiffe://test.com/back-end -federatesWith spiffe://example.org -selector unix:uid:1000
+$ docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://second-domain.test/host -spiffeID spiffe://second-domain.test/back-end -federatesWith spiffe://first-domain.test -selector unix:uid:1000
 
 Entry ID:	ced66654-fe63-46e5-895b-3896b686ea6a
-SPIFFE ID:	spiffe://test.com/back-end
-Parent ID:	spiffe://test.com/host
+SPIFFE ID:	spiffe://second-domain.test/back-end
+Parent ID:	spiffe://second-domain.test/host
 TTL:		3600
 Selector:	unix:uid:1000
-FederatesWith:	spiffe://example.org
+FederatesWith:	spiffe://first-domain.test
 ```
 
-An Entry was created in SPIRE Server 2 Registry for the spiffe id `spiffe://test.com/back-end` that federates with the Trust Domain `spiffe://example.org`
+An Entry was created in SPIRE Server 2 Registry for the spiffe id `spiffe://second-domain.test/back-end` that federates with the Trust Domain `spiffe://first-domain.test`
 
 #### Register the SPIRE Agents
 
 Generate Token for SPIRE Agent 1: 
 
 ```
-$ docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://example.org/host
+$ docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://first-domain.test/host
 
 Token: ac37c7b9-3eee-435a-adac-fb6822ad325c
 ```
@@ -290,8 +295,8 @@ DEBU[0000] WorkloadAttestor(k8s): configuring plugin     subsystem_name=catalog
 DEBU[0000] WorkloadAttestor(unix): configuring plugin    subsystem_name=catalog
 DEBU[0000] NodeAttestor(join_token): configuring plugin  subsystem_name=catalog
 DEBU[0000] No pre-existing agent SVID found. Will perform node attestation  subsystem_name=attestor
-DEBU[0000] Requesting SVID for spiffe://example.org/front-end  subsystem_name=manager
-DEBU[0000] Requesting SVID for spiffe://example.org/host  subsystem_name=manager
+DEBU[0000] Requesting SVID for spiffe://first-domain.test/front-end  subsystem_name=manager
+DEBU[0000] Requesting SVID for spiffe://first-domain.test/host  subsystem_name=manager
 INFO[0000] Starting workload API                         subsystem_name=endpoints
 ```
 
@@ -301,7 +306,7 @@ SPIRE Agent 1 is running.
 Generate Token for SPIRE Agent 2: 
 
 ```
-$ docker-compose exec spire-server-backend ./spire-server token generate -spiffeID spiffe://test.com/host
+$ docker-compose exec spire-server-backend ./spire-server token generate -spiffeID spiffe://second-domain.test/host
 
 Token: ac37c7b9-3eee-435a-adac-fb6822ad325c
 ```
@@ -317,8 +322,8 @@ DEBU[0000] KeyManager(memory): configuring plugin        subsystem_name=catalog
 DEBU[0000] WorkloadAttestor(k8s): configuring plugin     subsystem_name=catalog
 DEBU[0000] WorkloadAttestor(unix): configuring plugin    subsystem_name=catalog
 DEBU[0000] No pre-existing agent SVID found. Will perform node attestation  subsystem_name=attestor
-DEBU[0000] Requesting SVID for spiffe://test.com/back-end  subsystem_name=manager
-DEBU[0000] Requesting SVID for spiffe://test.com/host    subsystem_name=manager
+DEBU[0000] Requesting SVID for spiffe://second-domain.test/back-end  subsystem_name=manager
+DEBU[0000] Requesting SVID for spiffe://second-domain.test/host    subsystem_name=manager
 INFO[0000] Starting workload API                   
 ```
 
@@ -433,7 +438,7 @@ stream {
     ssl_spiffe on;
 
     # List of SPIFFE IDs to accept from client's certificate
-    ssl_spiffe_accept spiffe://example.org/front-end;
+    ssl_spiffe_accept spiffe://first-domain.test/front-end;
 
     # Redirect traffic to postgres database
     proxy_pass            localhost:5432;
@@ -441,7 +446,7 @@ stream {
 }
 ```
 
-It validates that the SPIFFE ID in the Peer's SVID is `spiffe://example.org/front-end`.
+It validates that the SPIFFE ID in the Peer's SVID is `spiffe://first-domain.test/front-end`.
 
 ## More information
 
