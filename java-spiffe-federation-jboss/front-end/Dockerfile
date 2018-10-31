@@ -24,7 +24,7 @@ RUN mkdir -p /opt/jboss/modules/system/layers/base/spiffe/main
 COPY module-spiffe.xml /opt/jboss/modules/system/layers/base/spiffe/main/module.xml
 RUN cp spiffe-provider.jar /opt/jboss/modules/system/layers/base/spiffe/main
 
-# Downlaod postgres JDBC driver
+# Download postgres JDBC driver
 ARG POSTGRES_DRIVER_URL="https://storage.googleapis.com/spiffe-example/java-spiffe-federation-demo/postgresql-42.2.5.jar"
 RUN curl --silent ${POSTGRES_DRIVER_URL} -o postgresql-42.2.5.jar
 RUN mkdir -p /opt/jboss/modules/system/layers/base/org/postgresql/main
