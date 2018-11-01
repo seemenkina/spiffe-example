@@ -18,8 +18,8 @@ rm bundle2.pem
 docker-compose exec spire-server-frontend ./spire-server bundle set -id spiffe://second-domain.test -path bundle2.pem
 docker-compose exec spire-server-backend ./spire-server bundle set -id spiffe://first-domain.test -path bundle1.pem
 
-docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://first-domain.test/host -spiffeID spiffe://first-domain.test/front-end -federatesWith spiffe://second-domain.test -selector unix:uid:1000 -ttl 60
-docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://second-domain.test/host -spiffeID spiffe://second-domain.test/back-end  -federatesWith spiffe://first-domain.test -selector unix:uid:1000 -ttl 60
+docker-compose exec spire-server-frontend ./spire-server entry create -parentID spiffe://first-domain.test/host -spiffeID spiffe://first-domain.test/front-end -federatesWith spiffe://second-domain.test -selector unix:uid:1000
+docker-compose exec spire-server-backend ./spire-server entry create -parentID spiffe://second-domain.test/host -spiffeID spiffe://second-domain.test/back-end  -federatesWith spiffe://first-domain.test -selector unix:uid:1000
 
 
 OUTPUT1=$(docker-compose exec spire-server-frontend ./spire-server token generate -spiffeID spiffe://first-domain.test/host 2>&1)

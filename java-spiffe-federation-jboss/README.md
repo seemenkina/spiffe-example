@@ -10,7 +10,7 @@ the PostgreSQL Database.
 
 The NGINX Proxy supports SPIFFE based TCP connections. 
 
-The JBOSS uses the [java-spiffe](https://github.com/spiffe/java-spiffe) library that offers an interface to fetch the 
+The JBOSS Server uses the [JAVA-SPIFFE](https://github.com/spiffe/java-spiffe) library that offers an interface to fetch the 
 SVIDs certificates and federated bundles from the  SPIRE Workload API and provides both a Java Security Provider (KeyStore and TrustStore) and
 a SocketFactory implementation that leverages that Provider for supplying the SVIDs and validating peers' SVIDs during the SSL handshake.  
 
@@ -331,18 +331,40 @@ INFO[0000] Starting workload API
 #### Run the NGINX Proxy: 
 
 ```
-$ docker-compose exec backend /opt/nginx/nginx
+$ docker-compose exec -d backend /opt/nginx/nginx
+```
 
-2018/10/18 17:29:38 [notice] 39#0: using the "epoll" event method
-2018/10/18 17:29:38 [notice] 39#0: nginx/1.13.9
-2018/10/18 17:29:38 [notice] 39#0: built by gcc 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) 
-2018/10/18 17:29:38 [notice] 39#0: OS: Linux 4.15.0-36-generic
-2018/10/18 17:29:38 [notice] 39#0: getrlimit(RLIMIT_NOFILE): 1048576:1048576
-2018/10/18 17:29:38 [notice] 39#0: start worker processes
-2018/10/18 17:29:38 [notice] 39#0: start worker process 46
-2018/10/18 17:29:38 [notice] 39#0: signal 28 (SIGWINCH) received
-2018/10/18 17:29:38 [notice] 46#0: signal 28 (SIGWINCH) received
-2018/10/18 17:29:38 [info] 46#0: epoll_wait() failed (4: Interrupted system call)
+Check the logs to verify that there were not any errors:
+
+```
+$ docker-compose exec backend cat /usr/local/nginx/logs/nginx.log
+
+2018/11/01 14:58:33 [debug] 114#0: bind() 0.0.0.0:8443 #5 
+2018/11/01 14:58:33 [notice] 114#0: using the "epoll" event method
+2018/11/01 14:58:33 [debug] 114#0: counter: 00007FAEBAA23080, 1
+2018/11/01 14:58:33 [notice] 114#0: nginx/1.13.9
+2018/11/01 14:58:33 [notice] 114#0: built by gcc 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) 
+2018/11/01 14:58:33 [notice] 114#0: OS: Linux 4.15.0-38-generic
+2018/11/01 14:58:33 [notice] 114#0: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2018/11/01 14:58:33 [debug] 114#0: write: 6, 00007FFDEA507840, 4, 0
+2018/11/01 14:58:33 [debug] 114#0: setproctitle: "nginx: master process /opt/nginx/nginx"
+2018/11/01 14:58:33 [notice] 114#0: start worker processes
+2018/11/01 14:58:33 [debug] 114#0: channel 3:6
+2018/11/01 14:58:33 [notice] 114#0: start worker process 121
+2018/11/01 14:58:33 [debug] 114#0: sigsuspend
+2018/11/01 14:58:33 [debug] 121#0: add cleanup: 0000000001A26CD8
+2018/11/01 14:58:33 [debug] 121#0: malloc: 0000000001A141F0:8
+2018/11/01 14:58:33 [debug] 121#0: notify eventfd: 8
+2018/11/01 14:58:33 [debug] 121#0: testing the EPOLLRDHUP flag: success
+2018/11/01 14:58:33 [debug] 121#0: malloc: 0000000001A18810:6144
+2018/11/01 14:58:33 [debug] 121#0: malloc: 00007FAEB9AE2010:237568
+2018/11/01 14:58:33 [debug] 121#0: malloc: 0000000001A29D50:98304
+2018/11/01 14:58:33 [debug] 121#0: malloc: 0000000001A41D60:98304
+2018/11/01 14:58:33 [debug] 121#0: epoll add event: fd:5 op:1 ev:00002001
+2018/11/01 14:58:33 [debug] 121#0: epoll add event: fd:6 op:1 ev:00002001
+2018/11/01 14:58:33 [debug] 121#0: setproctitle: "nginx: worker process"
+2018/11/01 14:58:33 [debug] 121#0: worker cycle
+2018/11/01 14:58:33 [debug] 121#0: epoll timer: -1
 ```
 
 #### Run the JBOSS Wildfly Server: 
@@ -397,7 +419,7 @@ The connection to the PostgreSQL database is configured through a DataSource def
 
 `backend:8443` is where the NGINX is listening for SSL connections. 
 The URL has a parameter `socketFactory` that configures the SocketFactory implementation to be used to create the Socket. 
-The `SPIFFESocketFactory` from the [java-spiffe](https://github.com/spiffe/java-spiffe) will be used to create the Socket
+The `SPIFFESocketFactory` from the [JAVA-SPIFFE](https://github.com/spiffe/java-spiffe) will be used to create the Socket
 to connect to the NGINX proxy. 
 
 The reason for using the parameter `socketFactory` and not the parameter `sslfactory` is that the connection to the PostgreSQL is 
@@ -450,7 +472,9 @@ It validates that the SPIFFE ID in the Peer's SVID is `spiffe://first-domain.tes
 
 ## More information
 
-[java-spiffe library](https://github.com/spiffe/java-spiffe/blob/master/README.md)
+[JAVA-SPIFFE library](https://github.com/spiffe/java-spiffe/blob/master/README.md)
+
+[NGINX with SPIFFE support](https://github.com/spiffe/spiffe-nginx)
 
 [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/documentation/94/connect.html)
 
