@@ -36,6 +36,11 @@ Demonstrates the use of the SPIFFE Workload API to dynamically update the X509 c
 
 Demonstrates two Tomcats using a SPIFFE based KeyStore and TrustStore that handles SVID certificates that gets from the WorkloadAPI. Connections are established using mTLS validating SPIFFE IDs.
 
+
+**[java-spiffe-federation-jboss](java-spiffe-federation-jboss) - JBOSS and NGINX on Federated Trust Domains**
+
+Shows a Federation scenario with two trust-domains, one having a JBOSS Wildfly Server connecting to a PostgreSQL database proxied by a NGNIX running on the other trust-domain. 
+
 ## Infrastructure
 
 **[vagrant_k8s](vagrant_k8s) - Local Kubernetes with Vagrant**
