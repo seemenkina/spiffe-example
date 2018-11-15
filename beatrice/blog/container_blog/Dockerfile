@@ -10,9 +10,8 @@ RUN apt-get -y install \
 	python-mysqldb \
 	git
 
-WORKDIR /home/ubuntu
-
 RUN \
+  cd ${HOME} && \
   git clone https://github.com/sh4nks/flaskbb.git && \
   cd flaskbb && \
   pip install -r requirements.txt

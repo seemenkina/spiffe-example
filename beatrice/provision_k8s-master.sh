@@ -20,4 +20,4 @@ kubectl create -f /extra_mount/blog/blog.yaml
 /extra_mount/install_spire.sh server
 
 # drop user into /opt/spire dir
-echo "cd /opt/spire" >> /home/ubuntu/.bashrc
+echo "cd /opt/spire" >> $HOME/.bashrc

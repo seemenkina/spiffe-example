@@ -3,7 +3,7 @@ Description=spire-agent
 
 [Service]
 Type=simple
-User=ubuntu
+User=${USER}
 WorkingDirectory=/opt/spire
 ExecStart=/opt/spire/spire-agent run
 

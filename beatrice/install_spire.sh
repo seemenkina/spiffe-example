@@ -13,7 +13,6 @@ cd /opt
 sudo ln -s spire-* spire
 sudo rm -rf /opt/spire/conf
 sudo cp -r /extra_mount/spire-conf /opt/spire/conf
-sudo chown -R ubuntu:ubuntu /opt/spire*
 
 #sudo cp /extra_mount/systemd/spire-${mode}.service /etc/systemd/system/
 #sudo systemctl daemon-reload

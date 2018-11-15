@@ -38,7 +38,7 @@ sudo apt-get install -y \
 	kubectl=#{$kubernetes_version}-00
 sudo apt-get install -y docker.io
 
-sudo usermod --append --groups docker ubuntu
+sudo usermod --append --groups docker ${USER}
 _SCRIPT
 
 $setup_master = <<_SCRIPT
@@ -51,11 +51,11 @@ sudo kubeadm init \
 	--token=nogood.choiceforasecret \
 	--apiserver-advertise-address=#{$master_ip}
 
-mkdir -p /home/ubuntu/.kube
-sudo cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-sudo chown -R ubuntu:ubuntu /home/ubuntu/.kube
+mkdir -p ${HOME}/.kube
+sudo cp /etc/kubernetes/admin.conf ${HOME}/.kube/config
+sudo chown -R ${USER}:${USER} ${HOME}/.kube
 
-export KUBECONFIG=/home/ubuntu/.kube/config
+export KUBECONFIG=${HOME}/.kube/config
 kubectl apply --filename=/vagrant/flannel.yaml
 kubectl apply --filename=/vagrant/registry.yaml
 
