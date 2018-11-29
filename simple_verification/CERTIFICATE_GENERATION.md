@@ -1,7 +1,7 @@
 
-#How to generate a new certificate:
+# How to generate a new certificate:
 
-##1. Generate two CA certificates.
+## 1. Generate two CA certificates.
 
 The first one is based on the following information:
 ```
@@ -23,7 +23,7 @@ $ openssl genrsa -out ca-key.pem 4096
 $ openssl req -x509 -new -sha256 -key ca-key.pem -days 3650 -out ca-crt.pem
 ```
 
-##2. Generate two Intermediate CA CSRs and sign them by relevant CA.
+## 2. Generate two Intermediate CA CSRs and sign them by relevant CA.
 
 Certificate information for the first certificate is as follows:
 ```
@@ -46,7 +46,7 @@ $ openssl req -new -sha256 -key ca2-key.pem -out ca2-csr.pem
 $ openssl x509 -req -in ca2-csr.pem -CA ca-crt.pem -CAkey ca-key.pem -CAcreateserial -out ca2-crt.pem -days 3650
 ```
 
-##3. Generate a signed database certificate and a signed blog certificate.
+## 3. Generate a signed database certificate and a signed blog certificate.
 
 ```
 CN: database; 
@@ -170,7 +170,8 @@ openssl.cnf:
     URI = spiffe://blog.dev.example.org/path/service
 ```
 
-##4. Create main key file for the database and the blog:
+## 4. Create main key file for the database and the blog:
+
 Blog:
 - `ca-chain.cert.pem` consists of certificate from `ca2-crt.pem` and certificate from `ca-crt.pem`. Use certificate where `Organization: test1.example.org`
 - `client.key.pem` consists of certificate from `blog-crt.pem` and private key from `client-key.pem`
